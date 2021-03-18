@@ -33,7 +33,7 @@
 # 授業内容
 授業の内容を要約した資料と授業黒板の画像をアップロードしていきます.
 
-- 第0回 (2020/10/06). 
+- 第0回 (2021/04/13).
 <!-- [第0回資料](https://github.com/masataka123/class/blob/master/2020_autumn/materials/0_成績の付け方_授業の進め方.pdf) [授業に関する情報と履修方法の資料](https://github.com/masataka123/class/blob/master/2020_autumn/materials/0_授業に関する情報と履修方法ver2.pdf)
 -->
 
