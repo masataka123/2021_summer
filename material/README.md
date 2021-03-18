@@ -6,9 +6,3 @@
 詳しくは[こちら](http://www.humblesoft.com/wiki/?GitHubからダウンロードする方法)
 - その他Qiitaに書いてあると思うのでそれを参考にダウンロードする.
 
-# git clone によるダウンロードの詳細
-現在のPathはclass->2020_autumn->materialsです.
-なのでgit cloneとかする際は[class](https://github.com/masataka123/class)まで戻って下さい.
-すると右上に緑のボタンがあると思います.
-あとはgit cloneするなり, zipダウンロードするなりして下さい.
-
