@@ -1,0 +1,1856 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第1回. 実数の定義と性質 (三宅先生の本, 1.1と1.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/13
+\end{flushright}
+
+\section{記法に関して}
+以下この授業を通してよく使う記号や用語をまとめる.
+(興味がなければ飛ばして良い)
+
+\subsection{よく使う記号}
+\begin{itemize}
+\item $\N =\{ \text{自然数全体}\} = \{ 1,2,3,4,5,\cdots\}$
+\item $\Z =\{ \text{整数全体}\} = \{ 0, \pm1, \pm 2,\cdots\}$
+\item $\Q =\{ \text{有理数全体} \} = \left\{ \frac{m}{n} \,\,|\,\,  m,n \in \Z , n \neq 0 \right\}$
+\item $\R =\{ \text{実数全体}\} $
+\item $\R \setminus \Q=\{ x \in \R \,\, | \,\, x \not \in \Q\} = \{ \text{無理数全体}\} $
+\end{itemize}
+
+\subsection{区間}
+\begin{itemize}
+\item $ [a,b] = \{ x \in \R \,\,| \,\, a \leqq x \leqq b\}$ ($a,b$ 共に実数)
+\item $ [a,b) = \{ x \in \R \,\,| \,\, a \leqq x < b\}$ ($a$は実数, $b$は実数または$+\infty$)\footnote{$+ \infty$は実数ではないが限りなく大きなものとして扱います. 一種の記法です. $- \infty$も同様に限りなく小さいものとして扱います.}
+\item $ (a,b] = \{ x \in \R \,\,| \,\, a < x \leqq b\}$ ($a$は実数または$-\infty$, $b$は実数)
+\item $ (a,b) = \{ x \in \R \,\,| \,\, a < x < b\}$ ($a$は実数または$-\infty$, $b$は実数または$+\infty$)
+\end{itemize}
+
+特に\underline{$(a,b)$を開区間}といい, \underline{$ [a,b]$を閉区間}という.
+この記法により, $\R = (- \infty, + \infty)$である.
+
+\begin{exa}
+$A=[-1, 1], B =[-2, -1), C=[2, +\infty)$とする.
+$A \cap B $は空集合である. $A$のみ閉区間であり, 開区間はこの中にはない.
+\end{exa}
+
+\subsection{有界集合}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+$A$を$\R$の部分集合とする.
+\begin{itemize}
+\item \underline{$A$が上に有界}であるとは, ある実数$a$があって, 任意の(すべての) $x \in A$について$x \leqq a$となること. ($A \subset (- \infty, a]$に同じ.)
+\item \underline{$A$が下に有界}であるとは, ある実数$a$があって, 任意の$x \in A$について$a \leqq x$となること. ($A \subset [a, +\infty)$に同じ.)
+\item \underline{$A$が有界}であるとは, 上にも下にも有界であること. (ある正の実数$a$があって, $A \subset [-a, a]$となることと同じ.)
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+$A=[-1, 1], B =[-2, -1), C=[2, +\infty)$とする.
+$A, B $は有界集合である. 
+$C$は下に有界であるが, 上に有界ではない.
+\end{exa}
+
+\subsection{数列と数列の極限}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+各自然数$n$について, 実数$a_n$を対応させたものを$\{a_n\}_{n=1}^{\infty}$と
+書き, \underline{数列}と呼ぶ.
+\begin{itemize}
+\item 常に$a_n \in \Q$であるとき, \underline{有理数列}という.
+\item $\{ a_n \,\,|\,\, n \in \N \} $が有界であるとき, \underline{有界数列}という.
+\item $a_1 \leqq a_2 \leqq a_3 \leqq \cdots $であるとき, \underline{単調増加数列}という.
+\item $a_1 \geqq a_2 \geqq a_3 \geqq \cdots $であるとき, \underline{単調減少数列}という.
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+  
+ \begin{exa}
+ \begin{itemize}
+\item $a_n = \frac{1}{n}$からなる数列は有理数列, 有界数列, 単調減少数列である.
+\item $a_n = n$からなる数列は有理数列, 単調増加数列である.
+\item $a_n = (-1)^{n} \sqrt{2}$からなる数列は有界数列である.
+ \end{itemize}
+\end{exa}
+
+%さて数列の極限の定義をする. まずはラフな定義をする.
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[数列の極限の感覚的な定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, $n$を大きくしていくと$a_n$が$\alpha$に限りなく近づくこと.
+このとき
+$$
+\lim_{n \rightarrow \infty} a_n = \alpha \text{\,\,または\,\,} 
+a_n \xrightarrow[n \rightarrow \infty]{} \alpha 
+$$
+とかき, \underline{$a_n$は$\alpha$に収束する}という.
+$a_n$が収束しないとき, \underline{$a_n$は発散する}という.
+
+\hspace{12pt}%数列が$\{a_n\}_{n=1}^{\infty}$が
+$n$を大きくしていくと, $a_n$が限りなく大きくなるとき, \underline{$\lim_{n \rightarrow \infty} a_n =+\infty $と書く.}
+限りなく小さくなるとき, \underline{$\lim_{n \rightarrow \infty} a_n   = - \infty $と書く.}
+ \end{dfn}
+ \end{tcolorbox}
+
+
+これでも良いのだが, 万が一のため数列の極限の厳密な定義も書いておく. \footnote{この授業では$\epsilon$-$N$論法を用いた厳密な証明はしないつもりだが, 念のため定義をします. 詳しいことは追加資料で書きます. 後期の担当の先生によっては$\epsilon$-$N$論法や$\epsilon$-$\delta$論法を使うかもしれないので, 後期で分からなくなった場合, 適宜利用してください.}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$N$論法を用いた厳密な極限の定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, 
+任意の正の実数$\epsilon $について, ある$N \in \N$があって, $N < n$ならば
+$|a_n - \alpha| <\epsilon$となること.
+ \end{dfn}
+ \end{tcolorbox}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の存在]
+ $\Q$を有理数の集合とする.
+このとき$\Q$を含む集合$X$があって, 次を満たす.
+\begin{enumerate}
+\item 任意の$x \in X$に関して, ある有理数列$\{ a_n\}$があり, $\lim_{n \rightarrow \infty} a_n = x$となる.
+\item $X$上の数列$\{ a_n\}$がコーシー列ならば, ある$\alpha \in X$があり, $\lim_{n \rightarrow \infty} a_n = \alpha$となる. (コーシー列は収束する.)
+\end{enumerate}
+
+この\underline{$X$を$\R$と書き, 実数の集合}と呼ぶ.
+
+\hspace{12pt}ここで数列$\{ a_n\}$がコーシー列とは任意の正の実数$\epsilon$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となる数列のこととする.
+
+
+ \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の連続性]
+    \label{realconti}
+$\R$上の上に有界な単調増加数列は収束する.
+
+ \end{thm}
+ \end{tcolorbox}
+同様に $\R$上の下に有界な単調減少数列は収束する.
+ 
+  \begin{exa}
+ %\begin{itemize}
+$a_n = \frac{1}{n}$は下に有界な単調減少数列である. よって定理\ref{realconti}から数列$\{ a_n\}$は収束する.
+実際$\lim_{n \rightarrow \infty} a_n =0$である. 
+%\item $a_n = n$は収束しない. ちなみに単調増加数列だが有界ではない.
+%\item $a_n = (-1)^{n} \sqrt{2}$も収束しない. ちなみに有界だが単調増加(減少)数列ではない.
+% \end{itemize}
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の性質]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} b_n = \beta$, $c \in \R$とするとき,  以下が成り立つ.
+ \begin{itemize}
+ \item $\lim_{n \rightarrow \infty} (a_n \pm b_n) = \alpha \pm \beta$
+  \item $\lim_{n \rightarrow \infty} (c a_n ) = c\alpha $
+   \item $\lim_{n \rightarrow \infty} (a_n b_n) = \alpha  \beta$
+    \item $\lim_{n \rightarrow \infty} \frac{a_n}{b_n} = \frac{\alpha}{\beta}$ 
+    ($\beta \neq 0$のとき.)
+ \end{itemize}
+  
+        \end{prop}
+ \end{tcolorbox}
+ 
+ \subsection{最大・最小・上限・下限}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+    $A$を$\R$の部分集合とする.
+\begin{itemize}
+\item \underline{$m \in A$が$A$の最大}とは, 任意の$a \in A$について$a \leqq m$となること.  このとき\underline{$m=\max(A)$と書く.}
+\item \underline{$m \in A$が$A$の最小}とは, 任意の$a \in A$について$m \leqq a$となること. このとき\underline{$m=\min(A)$と書く. }
+\item $A$が上に有界であるとき, 
+$$
+\sup A = \min \{ x \in \R \,\,| \,\, \text{任意の$a \in A$について$a \leqq x$となる}\}
+$$
+を\underline{$A$の上限}とする. $A$が上に有界でないとき, $\sup A = + \infty$とする.
+\item $A$が下に有界であるとき, 
+$$
+\inf A = \max \{ x \in \R \,\,| \,\, \text{任意の$a \in A$について$x \leqq a$となる}\}
+$$
+を\underline{$A$の下限}とする. $A$が下に有界でないとき, $\inf A = - \infty$とする.
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+ 注意点として, 最大・最小はいつも存在するとは限らないが, 上限・下限はいつも存在する.($\pm \infty$を含めてですが.)
+ 
+   \begin{exa}
+$A = (0,1]$のとき, $\max(A) =\sup(A)=1$, $\inf(A)=0$, $\min(A)$は存在しない.
+\end{exa}
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item $A = \{ 1 - \frac{1}{n} \,\,| \,\, n \in \N\}$とする.
+$A$の最大・最小・上限・下限を求めよ. また$A$が有界であることを示せ.
+\item $a_1=10$, $a_{n+1} = 10 \sqrt{a_n}$として, 数列$\{ a_n \}_{n=1}^{\infty}$を定める. 
+数列$\{ a_n \}_{n=1}^{\infty}$は有界な単調増加数列であることを示せ.
+またこの数列の収束値を求めよ.
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+{\Large 第1回追加資料. 極限に関する厳密な定義 (三宅先生の本, 1.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/13
+\end{flushright}
+
+\section{はじめに}
+この追加資料は第2回の内容を含みます.
+またかなり難しい部分もあるので理解できなくても構いません.
+(この内容を飛ばしてもらっても構いません.)
+私はこの授業において追加資料の内容($\epsilon$-$\delta$論法等)はほぼ使いません.
+後期の先生によってはこの回の内容を使う可能性もあるので, その場合にはこの資料を見ていただければ幸いです.
+
+\subsection{数列の極限と$\epsilon$-$N$論法}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$N$論法を用いた厳密な極限の定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, 
+任意の正の実数$\epsilon $について, ある$N \in \N$があって, $N < n$ならば
+$|a_n - \alpha| <\epsilon$となること.
+このとき $$
+\lim_{n \rightarrow \infty} a_n =\alpha \text{\,\,\,と書く.}$$
+ \end{dfn}
+ \end{tcolorbox}
+
+ 
+\begin{exa}
+$a_n = \frac{1}{n}$とする. 数列$\{ a_n\}$は0に収束する.
+
+\hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+$N = [\frac{1}{\epsilon}] + 1$をおくと
+$
+\frac{1}{N} = \frac{1}{ [\frac{1}{\epsilon}] + 1 } \leqq \frac{1}{\frac{1}{\epsilon}} = \epsilon$であるため,
+$$
+N<n\text{\,\,\, ならば}|a_n -0| = \left|\frac{1}{n}-0\right| < \frac{1}{N} \leqq \epsilon \text{\,\,\, となる.}
+$$
+
+
+以上より, 任意の$\epsilon >0$について, ある$N$(具体的には$[\frac{1}{\epsilon}] + 1$)があって, $N < n$ならば$|a_n - 0| <\epsilon$となるので, 
+数列$\{ a_n\}$は0に収束する.
+\end{exa}
+
+ 
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} b_n = \beta$とするとき$\lim_{n \rightarrow \infty} (a_n + b_n) = \alpha + \beta$となる.
+\end{prop}
+ \end{tcolorbox}
+ \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N_1, N_2$があって
+$$
+N_1 < n \text{\,\,\, ならば} |a_n - \alpha | < \frac{\epsilon}{2}
+$$
+$$
+N_2 < n \text{\,\,\, ならば} |b_n - \beta | < \frac{\epsilon}{2}
+$$
+ となる. 以上より$N = \max(N_1, N_2)$とおくと
+ $N<n$ならば
+ $$
+ |(a_n + b_n) -  (\alpha + \beta)|
+ \leqq |a_n - \alpha| + |b_n - \beta| <  \frac{\epsilon}{2} +  \frac{\epsilon}{2}
+ = \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$N$ (具体的には$\max(N_1, N_2)$)があって, 
+ $N < n$ならば$ |(a_n + b_n) -  (\alpha + \beta)| <\epsilon$となるので, 
+数列$\{ a_n + b_n\}$は$\alpha + \beta$に収束する.
+
+授業で紹介した収束の極限の性質の証明は上のようにやれば良い.
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の一意性]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} a_n = \beta$ならば$\alpha = \beta$である.
+\end{prop}
+ \end{tcolorbox}
+ 
+  \hspace{-18pt}(証.) 
+ $\alpha \neq \beta$として矛盾を示す.
+% $\alpha < \beta$と仮定して良い.
+ $\epsilon  = \frac{|\alpha - \beta |}{3}$とおくと, ある$N_1, N_2$があって
+$$
+N_1 < n \text{ならば} |a_n - \alpha | < \frac{\epsilon}{3}
+\text{\,\,かつ\,\,}
+N_2 < n \text{ならば} |a_n - \beta | < \frac{\epsilon}{3}
+\text{ となる.}
+$$
+ 以上より$m = \max(N_1, N_2) + 1$とおくと
+ $N_1 <m$かつ$N_2 <m$より
+ $$
+ |\alpha - \beta|
+ \leqq |a_m - \alpha| + |a_m- \beta| <  \frac{\epsilon}{3} +  \frac{\epsilon}{3}
+ = \frac{2}{3} |\alpha - \beta|
+ $$
+ である. しかし$ |\alpha - \beta|>0$より矛盾である.
+
+
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[はさみうちの原理.]
+$a_n \leqq b_n \leqq c_n$となる数列$\{ a_n \}$, $\{ b_n \}$, $\{ c_n \}$
+に関して
+$\lim_{n \rightarrow \infty }a_n = \lim_{n \rightarrow \infty }c_n =\alpha$
+ならば
+$\lim_{n \rightarrow \infty }b_n =\alpha$である.
+ \end{thm}
+ \end{tcolorbox}
+   \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N_1, N_2$があって
+$$
+N_1 < n \text{ならば} |a_n - \alpha | < \epsilon
+\text{\,\,かつ\,\,}
+N_2 < n \text{ならば} |c_n - \alpha | < \epsilon
+\text{ となる.}
+$$
+ 以上より$N = \max(N_1, N_2)$とおくと
+ $N<n$ならば
+ $a_n - \alpha \leqq b_n -\alpha \leqq c_n - \alpha $であるので
+ $$
+ |b_n -\alpha |
+ \leqq \max (|a_n - \alpha| , |c_n - \alpha |) < \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$N$ (具体的には$\max(N_1, N_2)$)があって, 
+ $N < n$ならば$ |b_n - \alpha| <\epsilon$となるので, 
+数列$\{ b_n\}$は$\alpha $に収束する.
+ 
+ 
+授業でちょっとだけ触れたコーシー列や実数の構成に関しても触れておきます.
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[コーシー列]
+数列\underline{$\{ a_n\}$がコーシー列}とは, 任意の$\epsilon >0$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となること.
+ \end{dfn}
+ \end{tcolorbox}
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[収束するならばコーシー列]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$ならば$\{ a_n\}$はコーシー列.
+\end{prop}
+ \end{tcolorbox}
+    \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N$があって
+$$
+N< n \text{\,\,\, ならば} |a_n - \alpha | < \frac{\epsilon}{2}
+$$
+となる. 以上より$N <n,m$ならば
+ $$
+ |a_n -a_m |
+ \leqq |a_n - \alpha|  + |a_m - \alpha | < \epsilon
+ $$
+となるので, 
+数列$\{ a_n\}$はコーシー列である.
+
+\begin{exa}
+逆に「コーシー列は収束するのか?」と思うが
+これはどの世界で数列を考えているかによる.
+有理数列$a_n$がコーシー列であっても, 数列$\{ a_n\}$が\underline{有理数には収束しない}こともあります.
+
+例として数列$\{ a_n\}$を
+$$
+a_n = \text{$\sqrt{2}$の小数第$n$位まで}
+$$
+とおく. 
+具体的には
+$$
+a_1 = 1.4, a_2 = 1.41, a_3=1.414, a_4 = 1.4142, \cdots
+$$
+である. このとき$a_n$は有理数列でありコーシー列だが
+$a_n$は$\sqrt{2}$に収束するため, 
+\underline{$a_n $は有理数には収束しない.}
+(もちろん実数には収束してます)
+\end{exa}
+
+よって有理数の世界だけ考えても解析をするには少々不便である.(極限操作をするから.)
+したがってどんなコーシー列でも収束し, 有理数を含む最小の世界があれば良いと思われる.
+その思いからできたのが実数である.
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の存在]
+ $\Q$を有理数の集合とする.
+このとき$\Q$を含む集合$X$があって, 次を満たす.
+\begin{enumerate}
+\item 任意の$x \in X$に関して, ある有理数列$\{ a_n\}$があり, $\lim_{n \rightarrow \infty} a_n = x$となる.
+\item $X$上の数列$\{ a_n\}$がコーシー列ならば, ある$\alpha  \in X$があり, $\lim_{n \rightarrow \infty} a_n = \alpha$となる. (コーシー列は収束する.)
+\end{enumerate}
+
+この\underline{$X$を$\R$と書き, 実数の集合}と呼ぶ.
+
+%ここで数列$\{ a_n\}$がコーシー列とは任意の正の実数$\epsilon \in \R$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となる数列のこととする.
+
+ \end{thm}
+ \end{tcolorbox}
+ \footnote{この証明は集合と位相という数学科の2年くらいで学ぶ内容です. 証明は難しいです.}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の連続性]
+上に有界な単調増加数列$\{a_n\}$は収束する.
+
+ \end{thm}
+ \end{tcolorbox}
+ 
+  \hspace{-18pt}(証.) 
+$a_n$がコーシー列であることを示す.
+$\{ a_n \}$は上に有界なので, $a_n<0$として良い.
+もしコーシー列でないとすると, ある$\epsilon>0$があり, 任意の$N$について$N<n<m$となる$n,m$があって$|a_n - a_m| \geqq \epsilon $となる.
+
+そこで新たに数列$\{b_l\}$を次のように定義する.
+まず$1<n_1<m_1$となる$n_1,m_1$があって$|a_{n_1} - a_{m_1}| \geqq \epsilon $である.
+よって, $b_1 = a_{n_1}, b_2 = a_{m_1}$とおく.
+次に$k_2 = m_{1}+1$とおくと,
+$k_2<n_2<m_2$となる$n_2,m_2$があって$|a_{n_2} - a_{m_2}| \geqq \epsilon $である.
+よって, $b_3 = a_{n_2}, b_4 = a_{m_2}$とおく.
+これを繰り返し行うことで帰納的に数列$\{b_l\}$を定める.
+
+構成方法から$\{b_l\}$は単調増加で, $b_l <0$である．
+さらに任意の自然数$l$について, $b_{2l} - b_{2l-1} \geqq \epsilon$かつ
+$b_{2l +1} - b_{2l} \geqq 0$である.
+以上より任意の自然数$l$について
+$$
+b_{2l} = (b_{2l} - b_{2l-1}) + (b_{2l-1} - b_{2l-2}) + \cdots + (b_2 - b_1)
++b_1 \geqq
+b_1 + l\epsilon$$
+である.
+ $b_{2l }<0$のため, 任意の自然数$l$について
+$
+b_1 + l\epsilon <0
+$
+である.
+ しかし, $\epsilon>0$であったため, これは矛盾である.
+ 
+
+\section{関数の極限}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$\delta$論法を用いた厳密な極限の定義]
+$f(x)$を$x=a$の周りで定義された関数とする．
+\underline{$f(x)$が$x=a$で$\alpha \in \R$に収束する}とは
+任意の正の実数$\epsilon$について, ある正の実数$\delta$があって, 
+$|x - a|< \delta$ならば
+$|f(x)- \alpha| <\epsilon$となること.
+このとき $$
+\lim_{x \rightarrow a} f(x) =\alpha \text{\,\,\,と書く.}$$
+ \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+$f(x) = x^2$は$x=0$で0に収束する.
+
+\hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+$\delta = \sqrt{\epsilon}$をおくと
+$|x - 0| < \delta$ならば
+$$
+|f(x)-0| = |x^2| < \delta^2 = \epsilon \text{\,\,\, となる.}
+$$
+以上より, 任意の$\epsilon >0$について, ある$\delta$(具体的には$\sqrt{\epsilon}$)があって, $|x - 0| < \delta$ならば$|f(x)-0| <\epsilon$となるので, 
+関数$f(x) = x^2$は$x=0$で0に収束する.
+\end{exa}
+
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $\lim_{x \rightarrow a} f(x) = \alpha$, 
+    $\lim_{x \rightarrow a} g(x)= \beta$とするとき$\lim_{x \rightarrow a}
+     (f(x) + g(x)) = \alpha + \beta$となる.
+\end{prop}
+ \end{tcolorbox}
+ \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$\delta_1, \delta_2 >0$があって
+$$
+| x - a| < \delta_1\text{ならば} |f(x)- \alpha | < \frac{\epsilon}{2}
+\text{\,\,かつ\,\,}
+| x - a| < \delta_2\text{ならば} |g(x)- \beta | < \frac{\epsilon}{2}
+\text{\,\,となる. }
+$$
+以上より$\delta = \min(\delta_1, \delta_2)$とおくと, $| x - a| < \delta$ならば
+ $$
+ |(f(x) + g(x)) -  (\alpha + \beta)|
+ \leqq |f(x) - \alpha| + |g(x) - \beta| <  \frac{\epsilon}{2} +  \frac{\epsilon}{2}
+ = \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$\delta$ (具体的には$\min(\delta_1, \delta_2)$)があって, 
+ $| x - a| < \delta$ならば$ |(f(x) + g(x)) -  (\alpha + \beta)| <\epsilon$となるので, 
+$\lim_{x \rightarrow a} (f(x) + g(x)) = \alpha + \beta$となる.
+
+
+授業で紹介した収束の極限の性質の証明は上のようにやれば良い.
+
+
+\section{最後に}
+少々書きすぎてしまったが, この内容は理解する必要はないです.
+この内容が必要になることはあまりないと思います.\footnote{まあ一種の無駄知識と思っていただければ幸いです. 私はこの内容が一番面白いですが...}
+ 
+
+\newpage
+
+\begin{center}
+{\Large 第2回. 連続関数 (三宅先生の本, 1.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/20
+\end{flushright}
+
+\section{関数の定義と性質}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[]
+ $A$を$\R$の部分集合とする.
+ 任意の$x \in A$について, 実数$f(x)$がただ一つ定まるとき, 
+ \underline{$f(x)$を$A$上の関数}といい
+    $$
+\begin{array}{cccc}
+f: &A& \rightarrow & \R  \\
+&x& \longmapsto & f(x)
+\end{array}
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+ 以下$f(A) = \{ f(x) \,\,|\,\, x \in A\}$とする.
+ 数列のときと同様に, 関数に関しても有界などが定義できる.
+  
+\begin{itemize}
+\item \underline{$f$が有界関数である}とは, $f(A)$が有開集合であること.
+つまりある$M>0$があって, 任意の$x \in A$について$|f(x)| \leqq M$であること.
+\item $\max_{x \in A}(f(x)) = \max(f(A))$を\underline{$f(x)$の$A$での最大値}という.
+\item $\min_{x \in A}(f(x)) = \min(f(A))$を\underline{$f(x)$の$A$での最小値}という.
+\item $\sup_{x \in A}(f(x)) = \sup(f(A))$を\underline{$f(x)$の$A$での上限}という.
+\item $\inf_{x \in A}(f(x)) = \inf(f(A))$を\underline{$f(x)$の$A$での下限}という.
+\end{itemize}
+
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &\R& \rightarrow & \R  \\
+&x& \longmapsto & \pm x^2
+\end{array}
+$$
+は$\R$上の関数ではない. 
+$f(2)$がただ一つに定まらないからである.
+  \end{exa}  
+  
+\begin{exa}
+     $$
+\begin{array}{cccc}
+f: &\R& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$\R$上の関数. 
+$\max_{x \in \R}(f(x))$は存在しない. 
+$\sup_{x \in \R}(f(x)) = + \infty$, 
+$\min_{x \in \R}(f(x)) =\inf_{x \in \R}(f(x))=0$
+である. 有界関数ではない.
+\end{exa}
+
+\begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$[-1,1]$上の関数. 
+$\max_{x \in [-1,1]}(f(x))=\sup_{x \in [-1,1]}(f(x)) = 1$, 
+$\min_{x \in [-1,1]}(f(x)) =\inf_{x \in [-1,1]}(f(x))=0$
+である. 有界関数である.
+\end{exa}
+
+\section{関数の極限と連続性}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[関数の極限]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする.
+$x \rightarrow a$のとき, \underline{$f(x)$が$\alpha \in \R$に収束する}とは
+$x \neq \alpha$を満たしながら$x$を$a$に近づけるとき, $f(x)$が限りなく$\alpha$に近づくこと.
+このとき
+$$
+\lim_{x \rightarrow a} f(x) = \alpha \text{\,\,または\,\,}
+f(x) \xrightarrow[x \rightarrow a]{} \alpha 
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+ 数列のときと同様にして,
+ $\lim_{x \rightarrow a} f(x) = +\infty$や
+  $\lim_{x \rightarrow a} f(x) = -\infty$も定める.
+  \footnote{関数の極限に関しても$\epsilon$-$\delta$論法を用いて厳密に定義できる. 追加資料で詳しく説明した.}
+  
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[関数の極限]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする. \\
+\underline{$\alpha \in \R$が$f(x)$の点$a$のおける右極限}とは, 
+%$x \neq \alpha$を満たしながら
+$x$を$a$の右側から$a$に近づけるとき, $f(x)$が限りなく$\alpha$に近づくこと.
+このとき
+$$
+\lim_{x \rightarrow a + 0} f(x) = \alpha 
+\text{\,\,と書く.}
+$$
+同様に$a$の左側から近づけた極限を\underline{左極限}といい, 
+$$
+\lim_{x \rightarrow a - 0} f(x) = \alpha 
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+  
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+について, $\lim_{x \rightarrow 0} f(x) =0.$
+\end{exa}
+
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &(- \infty, 0) \cup (0 , +\infty)& \rightarrow & \R  \\
+&x& \longmapsto & \frac{1}{x}
+\end{array}
+$$
+について, $\lim_{x \rightarrow 0+0} f(x) =+\infty$であり
+$\lim_{x \rightarrow 0-0} f(x) =-\infty$である.
+\footnote{$\lim_{x \rightarrow 0-0} f(x) $を$\lim_{x \rightarrow -0} f(x)$とも書きます. +のときも同じです.}
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の性質]
+  $\lim_{x \rightarrow a} f(x) = \alpha$, 
+    $\lim_{x \rightarrow a} g(x)= \beta$, $c \in \R$とするとき,  以下が成り立つ.
+ \begin{itemize}
+ \item $\lim_{x \rightarrow a}  (f(x) \pm g(x)) = \alpha \pm \beta$
+  \item $\lim_{x \rightarrow a} (c f(x)) = c\alpha $
+   \item $\lim_{x \rightarrow a}  (f(x)g(x)) = \alpha  \beta$
+    \item $\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \frac{\alpha}{\beta}$ 
+    ($\beta \neq 0$のとき.)
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[連続の定義]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする. \\
+\underline{$f(x)$が$x=a$で連続}とは, 
+$$
+\lim_{x \rightarrow a } f(x) = f(a) 
+\text{\,\,となること.}
+$$
+$f(x)$を区間$I$上の関数とする. \underline{$f(x)$が$I$上で連続}とは, 
+任意の$a \in I$に関して$f(x)$が$a$で連続となること.
+\end{dfn}
+  \end{tcolorbox}
+
+   \begin{exa}
+   みんながよく知っている関数は(だいたい)連続関数. つまり$x^2,\sin x, \cos x, e^x $などは連続関数である.
+   \end{exa}
+   \begin{exa}
+   $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+     \sin \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+  このとき, $f(x)$は$x=0$で連続ではない.
+   \end{exa}
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $f(x), g(x)$共に$x=a$で連続ならば, $f(x) \pm g(x)$, $c f(x)$,  $f(x)g(x)$, $\frac{f(x)}{g(x)} $(ただし$g(a) \neq 0$)などは$x=a$で連続.
+ \end{prop}
+   \end{tcolorbox}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+  $y=f(x)$が$x=a$で連続であり, $z=g(y)$が$y=f(a)$で連続ならば, 
+  $z=g(f(x))$は$x=a$で連続.
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \section{連続関数に関する定理}
+ 
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[最大最小の存在定理]
+$f(x)$が閉区間$[a,b]$上で連続ならば, $f(x)$は$[a,b]$上で最大値, 最小値を持つ.
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$[-1,1]$上の連続関数. 
+最大値は$1$, 最小値は$0$.
+\end{exa}
+ \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &(-1,1)& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$(-1,1)$上の連続関数. 
+しかし, 最大値は存在しない.
+\end{exa}
+
+   \begin{exa}
+   $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+    \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+  このとき, $f(x)$は$x=0$で連続ではない.
+  最大値は存在しない.
+   \end{exa}
+ 
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[中間値の定理]
+$f(x)$を閉区間$[a,b]$上の連続関数とする.
+$f(a) < f(b)$ならば,　任意の$\alpha \in [f(a), f(b)]$について, ある$c \in [a,b]$があって$f(c) = \alpha$となる.
+ \end{thm}
+   \end{tcolorbox}
+   
+ \section{逆関数}
+ 
+ 
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[単調増加・単調減少]
+$f(x)$を区間$I$上の関数とする.
+$x<y$ならば$f(x)<f(y)$であるとき, \underline{$f$は$I$上で単調増加}という.
+(\underline{単調減少}に関しても同様に定める.)
+\end{dfn}
+
+  \end{tcolorbox}
+  
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[単調増加の判定法]
+$f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+$(a,b)$上$f'(x)>0$ならば$f(x)$は$[a,b]$上で単調増加である.
+(単調減少に関しても同様.)
+ \end{prop}
+   \end{tcolorbox}
+   \footnote{微分可能に関しては第3回授業で, この命題の証明は第4回の授業で行います.}
+   
+   
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[逆関数]
+$f(x)$を区間$I$上の関数とし, $g(x)$を区間$J$上の関数とする.
+$f(I) = J, g(J)=I$であり, $y=f(x)$であることが$x=g(y)$であることと同値であるとき, \\\underline{$g$を$f$の逆関数といい, $g=f^{-1}$と書く.}
+このとき
+$$
+f^{-1}(f(x))=x \text{\,\,かつ, \,\,} f(f^{-1}(y)) = y \text{\,\,である. \,\,}
+$$
+\end{dfn}
+  \end{tcolorbox}
+  
+  \begin{exa}
+
+   $$
+\begin{array}{ccccccccc}
+f: &[0, + \infty) & \rightarrow & \R & &g: &[0, + \infty)  & \rightarrow & \R \\
+&x & \longmapsto & x^2& & &y& \longmapsto & \sqrt{y}
+\end{array}
+$$
+とすると$f^{-1}=g$である.
+\end{exa}
+
+     \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[逆関数定理]
+$f(x)$を閉区間$[a,b]$上の連続な単調増加関数とする. このとき$[f(a),f(b)]$上連続な$f$の逆関数が存在する.
+ \end{thm}
+   \end{tcolorbox}
+   
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item    $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+    x \sin \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+$f(x)$は$[-1,1]$上で連続であることを示せ.
+\item 厚さが均一なお好み焼きは, 包丁を真っ直ぐに一回入れることで二等分にできることを示せ. (ただし具材等に関して細かいことは考えないでよく, ある種の連続性を仮定して良い.)
+\end{enumerate}
+
+
+\newpage
+
+\begin{center}
+{\Large 第3回. 微分法と初等関数の性質 (三宅先生の本, 1.3と2.1の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/27
+\end{flushright}
+
+\section{微分法}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+ $f(x)$を点$a$を含む開区間上の関数とする.
+ \underline{$f(x)$が$x=a$で微分可能}とは
+    $$ \lim_{x \rightarrow a} \frac{f(x) - f(a)}{x-a} \text{\,\,が存在すること.\,\,} $$
+    この値を$f'(a)$と書く.
+    $f'(a)$は$\drv{f}{x}|_{x=a}$や$\drv{f(a)}{x}$とも書く.
+    
+ \hspace{12pt}\underline{$f(x)$が$I$上で微分可能}とは, 任意の$a \in I$に関して
+ $f(x)$が$x=a$で微分可能であること. このとき
+  $$
+\begin{array}{cccc}
+f': &I& \rightarrow & \R  \\
+&x& \longmapsto & f'(x)
+\end{array}
+$$
+を\underline{$f(x)$の導関数}という. $f'(x)$は$\drv{f}{x}$とも書く.
+    \end{dfn}
+\end{tcolorbox}
+
+   \begin{exa}
+   みんながよく知っている関数は(だいたい)微分可能関数. つまり$x^2,\sin x, \cos x, e^x $などは微分可能な関数である.
+   \end{exa}
+
+  \begin{exa}
+微分可能な関数$f(x)$について, 点$(a, f(a))$での接線の方程式は
+$
+y - f(a) = f'(a) (x-a) 
+$
+である.
+   \end{exa}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$f(x)$が$x=a$で微分可能ならば$x=a$で連続である.
+\end{thm}
+  \end{tcolorbox}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[微分の性質]
+$f,g$を区間$I$上の微分可能な関数とするとき, 以下が成り立つ. ($c$は定数.)
+ \begin{itemize}
+ \item  $(f \pm g)' = f '\pm g'$
+  \item  $(c f)' = cf'$
+   \item  $(fg)' = f'g + fg'$
+    \item $ \left( \frac{f}{g} \right)' = \frac{f'g - f g'}{g^2}$ 
+    ($g'(x) \neq 0$なる点において.)
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+   
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[合成関数の微分法]
+$y=f(x)$が$x=a$で微分可能であり, $z=g(y)$が$y=f(a)$で微分可能であるとき, 
+$z=g(f(x))$は$x=a$で微分可能であり, 
+$$
+\drv{z}{x}=\drv{z}{y}\drv{y}{x} 
+\text{\,\,である.}
+$$
+より詳しく書くと, 
+$$\drv{z}{x}\Bigr|_{x=a}=\drv{z}{y}\Bigr|_{y=f(a)}\drv{y}{x}\Bigr|_{x=a}
+\text{\,\,である.}
+$$
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \begin{exa}
+ $z=\cos(x^2)$を普通に微分すると, $\drv{z}{x}=-2x \sin (x^2)$.
+ 一方$y=x^2, z=\cos y$とすると$\drv{y}{x}=2x, \drv{z}{y}=-\sin (y)$より, 
+ $$
+ \drv{z}{y}\drv{y}{x}  = (-\sin (x^2) )2x=-2x\sin (x^2) \text{\,\,である.}
+ $$
+ \end{exa}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[合成関数の微分法]
+関数$f(x)$は区間$I$で微分可能かつ単調増加であるとする.
+任意の$x \in I$で$f'(x) \neq 0$であると仮定する.
+このとき逆関数$f^{-1}(y)$は$f^{-1}(I)$上で微分可能であり
+$$
+\drv{x}{y}=\left(\drv{y}{x}\right)^{-1}=\frac{1}{\left(\drv{y}{x}\right)}
+\text{\,\,である.}
+$$
+同じことだが, 
+$$
+\drv{f^{-1}}{y}=\left(\drv{f}{x}\right)^{-1}=\frac{1}{\left(\drv{f}{x}\right)}
+\text{\,\,である.}
+$$
+ \end{thm}
+   \end{tcolorbox}
+   
+   
+ \section{初等関数の性質}
+ \subsection{三角関数}
+   
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[三角関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $(\sin x)' = \cos x$ 
+ \item  $(\cos x)' = -\sin x$
+  \item  $(\tan x)' = \frac{1}{(\cos x)^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+\subsection{逆三角関数}
+$\sin x$は$[- \frac{\pi}{2}, \frac{\pi}{2}]$上で単調増加, 
+$\cos x$は$[0, \pi]$上で単調増加, 
+$\tan x$は$[- \frac{\pi}{2}, \frac{\pi}{2}]$上で単調増加
+であるのでそれぞれ微分可能な逆関数が存在する.
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[逆三角関数]
+    \text{}
+ \begin{itemize}
+ \item    $$
+\begin{array}{cccc}
+\Sin: &[-1,1]& \rightarrow & \R  \\
+&y& \longmapsto & \Sin y
+\end{array}
+$$
+ を$\sin$の逆関数とする. これを\underline{アークサイン}と呼ぶ.
+ $\Sin([-1,1])=[- \frac{\pi}{2}, \frac{\pi}{2}]$である.
+ \item    $$
+\begin{array}{cccc}
+\Cos: &[-1,1]& \rightarrow & \R  \\
+&y& \longmapsto & \Cos y
+\end{array}
+$$
+ を$\cos$の逆関数とする. これを\underline{アークコサイン}と呼ぶ.
+ $\Cos([-1,1])=[0, \pi]$である.
+  \item    $$
+\begin{array}{cccc}
+\Tan: &\R& \rightarrow & \R  \\
+&y& \longmapsto & \Tan y
+\end{array}
+$$
+ を$\tan$の逆関数とする. これを\underline{アークタンジェント}と呼ぶ.
+ $\Tan(\R)=(- \frac{\pi}{2}, \frac{\pi}{2})$である.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+\begin{exa}
+$\Sin(\frac{1}{2})=\frac{\pi}{6}, \Cos(\frac{1}{2})=\frac{\pi}{3},\Tan(1)=\frac{\pi}{4}$である.
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[逆三角関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $(\Sin y)' =  \frac{1}{\sqrt{1-y^2}}$ 
+ \item  $(\Cos y)' = - \frac{1}{\sqrt{1-y^2}}$
+  \item  $(\Tan y)' = \frac{1}{1 + y^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+   
+ \subsection{指数関数}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ネピアの定数]
+$
+\lim_{n \rightarrow \infty} \left(1 + \frac{1}{n}\right)^n
+$
+は収束する. この値を$e$と書きネピアの定数という.
+\end{thm}
+  \end{tcolorbox} 
+  
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[指数関数・対数関数]
+    \text{}
+ \begin{itemize}
+\item $a>0$かつ$a \neq 1$なる実数$a$について, 関数
+$$
+\begin{array}{cccc}
+a^x: &\R& \rightarrow & (0, + \infty)  \\
+&x& \longmapsto & a^x
+\end{array}
+$$
+を\underline{指数関数}と呼ぶ.
+$a=e$のとき, $e^x$を$\exp x$ともかく.
+\item $a>0$かつ$a \neq 1$なる実数$a$について, 指数関数$a^x$の逆関数
+$$
+\begin{array}{cccc}
+\log_{a} y: &(0, + \infty) & \rightarrow & \R \\
+&y& \longmapsto & \log_{a} y
+\end{array}
+$$
+を\underline{対数関数}と呼ぶ.
+$a=e$のとき, $\log y$と書く.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[指数関数・対数関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $\lim_{x \rightarrow 0} \frac{\log (1+x)}{x} =1$, $\lim_{x \rightarrow 0} \frac{e^x -1}{x} =1$.
+ \item  $(a^x)' = (\log a) a^x$. 特に$(e^x)' = e^x$.
+  \item  $(\log_{a} y)' = \frac{1}{(\log a) y}$. 特に$(\log y)' = \frac{1}{y}$.
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+ \subsection{双曲線関数}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[双曲線関数]
+    \text{}
+ \begin{itemize}
+ \item    $$
+\sinh x = \frac{e^x - e^{-x}}{2}
+$$
+ とし, これを\underline{ハイパボリックサイン}と呼ぶ.
+ \item    $$
+\cosh x = \frac{e^x + e^{-x}}{2}
+$$
+ とし, これを\underline{ハイパボリックコサイン}と呼ぶ.
+ \item    $$
+\tanh x = \frac{\sinh x}{\cosh x}= \frac{e^x - e^{-x}}{e^x + e^{-x}}
+$$
+ とし, これを\underline{ハイパボリックタンジェント}と呼ぶ.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+       \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[双曲線関数の微分]
+    \text{}
+ \begin{itemize}
+\item $(\cosh x)^2 - (\sinh x)^2 = 1$ 
+ \item  $(\sinh x)' = \cosh x$
+ \item  $(\cosh x)' = \sinh x$
+  \item  $(\tanh x)' = \frac{1}{(\cosh x)^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item $\Sin(- \frac{\sqrt{3}}{2}), \Cos(- \frac{\sqrt{3}}{2}), \Tan(- \frac{\sqrt{3}}{3})$の値を求めよ.
+\item $f(x) = \log(\log (x))$とする. $f'(x)$を求めよ.
+\end{enumerate}
+
+
+
+\newpage
+
+\begin{center}
+{\Large 第4回. 平均値の定理と関数の極限値計算 (三宅先生の本, 2.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/05/11
+\end{flushright}
+
+\section{関数の極値}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[極値]
+$f(x)$を区間$I$上の関数とする.
+\begin{itemize}
+\item \underline{$f(x)$が$c\in I$で極大}であるとは, $c$を含む開区間$J$があって, $x \in J$かつ$x \neq c$ならば$f(x) < f(c)$となること.
+このとき, \underline{$f(x)$は$c$で極大である}といい, $f(c)$の値を\underline{極大値}という.
+\item \underline{$f(x)$が$c\in I$で極小}であるとは, $c$を含む開区間$J$があって, $x \in J$かつ$x \neq c$ならば$f(x) > f(c)$となること.
+このとき, \underline{$f(x)$は$c$で極小である}といい, $f(c)$の値を\underline{極小値}という.
+\item  極大値, 極小値の二つ合わせて\underline{極値}という.%極値をとる点$(a,b)$を\underline{極値点}という.
+\end{itemize}
+
+    \end{dfn}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+    $f(x)$が$c \in (a,b)$で極値を持てば, $f'(c) = 0$である.
+    \end{thm}
+\end{tcolorbox}
+
+\section{平均値の定理とその応用}
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x), g(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+\begin{itemize}
+\item (ロルの定理) $f(a) = f(b)$ならば, $f'(c) = 0$となる$c \in (a,b)$がある.
+\item (平均値の定理)
+$$
+f'(c) = \frac{f(b)-f(a)}{b-a}
+$$
+となる$c \in (a,b)$が存在する. 
+\item (コーシーの平均値の定理)
+$g(a) \neq g(b)$かつ任意の$x \in (a,b)$について$g'(x) \neq 0$ならば
+$$
+\frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)}
+$$
+となる$c \in (a,b)$が存在する. 
+\end{itemize}
+
+    \end{thm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+\begin{itemize}
+\item 任意の$x \in (a,b)$について$f'(x)=0$ならば$f$は$[a,b]$上で定数関数.
+\item 任意の$x \in (a,b)$について$f'(x)>0$ならば$f$は$[a,b]$上で単調増加関数.
+\end{itemize}
+
+    \end{thm}
+\end{tcolorbox}
+
+\begin{exa}
+$(\sin x)' = \cos x$より, $\sin x$は$[-\frac{\pi}{2}, \frac{\pi}{2}]$上単調増加.
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ロピタルの定理]
+    $f(x), g(x)$を点$a$の近くで定義された微分可能な関数とする.
+$\lim_{x \rightarrow a} f(x) = \lim_{x \rightarrow a} g(x) =0$かつ
+$\lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$が存在するならば, 
+$\lim_{x \rightarrow a} \frac{f(x)}{g(x)}$も存在して
+$$
+\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}.$$
+    \end{thm}
+\end{tcolorbox}
+\begin{exa}
+$$
+\lim_{x \rightarrow 0} \frac{e^{2x} - \cos x}{x} \text{\,\,を求めよ.}
+$$
+(答.)
+$\lim_{x \rightarrow 0} e^{2x} - \cos x =1-1=0$かつ
+$\lim_{x \rightarrow 0} x=0$であり
+$$
+\lim_{x \rightarrow 0} \frac{(e^{2x} - \cos x)'}{(x)'}
+=
+\lim_{x \rightarrow 0} \frac{2 e^{2x} - \sin x}{1} =2
+$$
+であるため, ロピタルの定理から
+$$
+\lim_{x \rightarrow 0} \frac{e^{2x} - \cos x}{x} =
+\lim_{x \rightarrow 0} \frac{(e^{2x} - \cos x)'}{(x)'}
+=2
+$$
+\end{exa}
+
+
+
+
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 
+$$
+\lim_{x \rightarrow 0} \frac{x - \sin x}{x^3} \text{\,\,を求めよ.}
+$$
+\end{enumerate}
+
+
+
+ 
+\newpage
+
+
+\begin{center}
+{\Large 第5回. 高次導関数とテイラーの定理 (三宅先生の本, 2.3と2.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/05/18
+\end{flushright}
+
+\section{高次導関数}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[高次導関数の定義]
+$f(x)$を区間$I$上の微分可能な関数とする.
+$f'(x)$が$I$上で微分可能であるとき, \underline{$f$は2回微分可能}であるといい, 
+$$
+f''(x) = (f'(x)  )'
+$$
+としてこれを\underline{2次の導関数}と呼ぶ.
+$f''(x)$は$f^{(2)}(x)$とも書く.
+
+\hspace{12pt}同様に$f^{(n-1)}(x)$が微分可能であるとき, \underline{$f$は$n$回微分可能}であるといい, 
+\underline{$n$次導関数} $f^{(n)}(x)$を$(f^{(n-1)}(x))'$として定める.
+ $f^{(n)}(x)$は$\drv{^n f}{x^n}$とも書く.
+    \end{dfn}
+\end{tcolorbox}
+
+\begin{exa}
+\begin{itemize}
+\item $f(x) = e^x$とすると, $  f^{(n)}(x) = e^x$である.
+\item $f(x) = \sin x$とすると, 
+   $$
+  f^{(n)}(x)= \begin{cases}
+(-1)^m \sin x& (n = 2m) \\
+   (-1)^m \cos x& (n = 2m+1)
+  \end{cases}
+  \text{\,\,である.}
+  $$
+\end{itemize}
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$C^n$級関数]
+$f(x)$を区間$I$上の関数とする.
+\begin{itemize}
+\item $f(x)$が$n$回微分可能であり, $f^{(n)}(x)$が連続であるとき, 
+\underline{$f$は$C^n$級関数}であるという.
+\item 任意の$n \in \N$について$f$が$C^n$級であるとき, 
+\underline{$f$を$C^{\infty}$級関数}であるという.
+\end{itemize}
+
+    \end{dfn}
+\end{tcolorbox}
+
+\begin{exa}
+みんながよく知っている関数は(だいたい)$C^{\infty}$級関数. 
+つまり$x^2,\sin x, \cos x, e^x $などは$C^{\infty}$級関数である.
+\end{exa}
+
+
+\section{テイラーの定理とその応用}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[テイラーの定理 1]
+$f(x)$が開区間$I$上の$C^2$級関数とする.
+$a<b$なる$a,b \in I$について
+$$
+f(b) = f(a) + f'(a) (b-a) + \frac{f''(c)}{2}(b-a)^2
+$$
+となる$c \in (a,b)$が存在する.
+    \end{thm}
+\end{tcolorbox}
+
+\begin{exa}
+$f(x) = e^x$とし$a=0$かつ$b$を正の実数とする.
+このときある$c \in (0,b)$があって
+$$
+e^b = f(0) + f'(0) b + \frac{f''(c)}{2}b^2
+= 1 + b + \frac{e^c}{2} b^2
+$$
+となる. $e^c \geqq 1$であるため, 
+$$
+e^b \geqq  1 + b + \frac{1}{2} b^2 \text{\,\,となる.}
+$$
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[極値判定法]
+$f(x)$が点$a$の周りで定義された$C^2$級関数とする.
+\begin{itemize}
+\item $f'(a) = 0$かつ$f''(a)>0$なら$f(x)$は$x=a$で極小.
+\item $f'(a) = 0$かつ$f''(a) < 0$なら$f(x)$は$x=a$で極大.
+\end{itemize}
+    \end{thm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[テイラーの定理 2]
+$f(x)$が開区間$I$上の$C^n$級関数とする.
+$a<b$なる$a,b \in I$について
+$$
+f(b) = f(a) + f'(a) (b-a) + \frac{f''(a)}{2!}(b-a)^2 + \cdots 
++  \frac{f^{(n-1)}(a)}{(n-1)!}(b-a)^{n-1} + \frac{f^{(n)}(c)}{n!}(b-a)^{n}
+$$
+となる$c \in (a,b)$が存在する.
+    \end{thm}
+\end{tcolorbox}
+
+\begin{exa}
+$f(x) = e^x$とし$a=0$かつ$b$を正の実数とする.
+このときある$c \in (0,b)$があって
+\begin{align*}
+\begin{split}
+e^b &= f(0) + f'(0) b + \frac{f''(0)}{2!}b^2 +  \cdots +\frac{f^{(n-1)}(0)}{(n-1)!}b^{n-1} + \frac{f^{(n)}(c)}{n!}b^{n} \\
+&= 1 + b + \frac{1}{2!} b^2 + \frac{1}{3!} b^3 + \cdots 
++ \frac{1}{(n-1)!}b^{n-1}  + \frac{e^c}{n!}b^{n} 
+\end{split}
+\end{align*}
+となる. $e^c \geqq 1$であるため, 
+$$
+e^b \geqq  1 + b + \frac{1}{2!} b^2 + \frac{1}{3!} b^3 + \cdots 
++ \frac{1}{(n-1)!}b^{n-1}  + \frac{1}{n!}b^{n} 
+\text{\,\,となる.}
+$$
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[有限テイラー展開]
+$f(x)$が開区間$I$上の$C^n$級関数とする.
+$a \in I$を固定する.
+任意の$x \in I$について, ある$\theta \in (0,1)$があって
+\begin{align*}
+\begin{split}
+f(x) &= f(a) + f'(a) (x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots \\
+&\cdots +  \frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1} + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n} \\
+&=\sum_{k=0}^{n-1}\frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}
+\end{split}
+\end{align*}
+となる.
+右辺を$x=a$における\underline{有限テーラー展開}と呼び, 
+$R_n=\frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}$を\underline{剰余項}と呼ぶ.
+特に$a=0$のとき, \underline{有限マクローリン展開}と呼ぶ.
+    \end{thm}
+ \end{tcolorbox}
+    
+
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 
+任意の$x \in \R$についてある$\theta \in (0,1)$があって
+$$
+\sin x = 1 - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots  + 
+ \frac{(-1)^{n-1} x^{2n-1}}{(2n-1)!} 
+ + \frac{ (-1)^n x^{2n}\sin (\theta x) }{2n!}
+$$
+となることを示せ.
+
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+{\Large 第6回. 漸近展開とべき級数展開 (三宅先生の本, 2.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/05/25
+\end{flushright}
+
+\section{漸近展開とべき級数展開}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[有限テイラー展開]
+$f(x)$が開区間$I$上の$C^n$級関数とする.
+$a \in I$を固定する.
+任意の$x \in I$について, ある$\theta \in (0,1)$があって
+\begin{align*}
+\begin{split}
+f(x) &= f(a) + f'(a) (x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots \\
+&\cdots +  \frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1} + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n} \\
+&=\sum_{k=0}^{n-1}\frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}
+\end{split}
+\end{align*}
+となる.
+右辺を$x=a$における\underline{有限テーラー展開}と呼び, 
+$R_n=\frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}$を\underline{剰余項}と呼ぶ.
+特に$a=0$のとき, \underline{有限マクローリン展開}と呼ぶ.
+    \end{thm}
+ \end{tcolorbox}
+    
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[ランダウの記号]
+$a$を実数または$\pm \infty$とし, $f(x)$と$g(x)$を$a$の周りで定義された関数とする.
+$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} =0$であるとき
+$$
+f(x) = o(g(x))\text{\,\,\,} (x \rightarrow a) \text{\,\,と書く.}
+$$
+    \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+ \begin{itemize}
+ \item $x^5 = o(x^3) \text{\,\,\,} (x \rightarrow 0) $
+ \item $\sin x = x + o(x^2) \text{\,\,\,} (x \rightarrow 0) $
+ \item 任意の正の実数$\alpha$について, $\log x = o(x^{\alpha}) \text{\,\,\,} (x \rightarrow +\infty) $であり, $x = o(e^{\alpha x}) \text{\,\,\,} (x \rightarrow +\infty)$である.
+ \end{itemize}
+
+ \end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[ランダウの記号の性質]
+$m,n \in \N$とする.
+ \begin{itemize}
+ \item $x^m o(x^n) = o(x^{m+n}) \text{\,\,\,} (x \rightarrow 0) $
+ \item $o(x^m) o(x^n) = o(x^{m+n}) \text{\,\,\,} (x \rightarrow 0) $
+ \item $m \leqq n$ならば$o(x^m) + o(x^n) = o(x^{m}) \text{\,\,\,} (x \rightarrow 0) $
+ \end{itemize}
+    \end{prop}
+ \end{tcolorbox}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[漸近展開]
+$f(x)$を$a$を含む開区間上の$C^n$級関数ならば
+\begin{align*}
+\begin{split}
+f(x) &= f(a) + f'(a) (x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots +  \frac{f^{(n)}(a)}{n!}(x-a)^{n} + o((x-a)^n) \text{\,\,\,}(x \rightarrow a) \\
+\end{split}
+\end{align*}
+となる.
+特に$a=0$の場合は下のようになる.
+\begin{align*}
+\begin{split}
+f(x) &= f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots +  \frac{f^{(n)}(0)}{n!}x^{n} + o(x^n) \text{\,\,\,}(x \rightarrow 0) \\
+\end{split}
+\end{align*}
+    \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+\begin{align*}
+\begin{split}
+e^x &= 1 + x+  \frac{x^2}{2!} + \frac{x^3}{3!}  + \cdots  +  \frac{ x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+\sin x &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots  + 
+ \frac{(-1)^{n-1} x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) 
+\end{split}
+\end{align*}
+ \end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[べき級数展開]
+$f(x)$を$a$を含む開区間上の$C^{\infty}$級関数とする.
+テイラーの定理
+$$
+f(x)=\sum_{k=0}^{n-1}\frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}
+$$
+において, 剰余項$R_n(x)=\frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}$とする.
+$b\in I$において$\lim_{n \rightarrow \infty}|R_n(b)| =0$となるならば,
+$$
+f(b)=\sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}(b-a)^k  \text{\,\,\, となる.}
+$$
+    \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+ $f(x)=e^x$とし, $a=0$かつ$b \in \R$とする. このとき剰余項は
+ $$
+ R_n(b) = \frac{e^{b \theta} b^n}{n!}
+ $$
+ である. $\lim_{n \rightarrow \infty}|R_n(b)| =0$であるので, べき級数展開ができ, 
+\begin{align*}
+\begin{split}
+e^b &= \sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}b^k = 1 + b + \frac{b^2}{2!} + \frac{b^3}{3!} + \frac{b^4}{4!} + \cdots 
+\end{split}
+\end{align*}
+ \end{exa}
+ 
+  \begin{exa}
+ $f(x)=\sin x$とし, $a=0$かつ$b \in \R$とする. このとき剰余項は
+ $$
+ R_{2n}(b) = \frac{(-1)^{n}b^{2n} \sin (b \theta) }{(2n)!}
+ $$
+ である. $\lim_{n \rightarrow \infty}|R_n(b)| =0$であるので, べき級数展開ができ, 
+\begin{align*}
+\begin{split}
+\sin b &= \sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}b^k = 
+ b - \frac{b^3}{3!} + \frac{b^5}{5!} -  \frac{b^7}{7!} +  \cdots 
+\end{split}
+\end{align*}
+ \end{exa}
+ 
+ \section{初等関数の漸近展開}
+
+ 初等関数の$a=0$の周りでの漸近展開の具体例を紹介する.\footnote{なんでもかんでも綺麗に漸近展開できるとは限らない. 例えば$\tan x$などの漸近展開の一般項は非常に難しい.}
+\begin{align*}
+\begin{split}
+e^x &= 1 + x+  \frac{x^2}{2!} + \frac{x^3}{3!}  + \cdots  + 
+ \frac{ x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+\sin x &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots  + 
+ \frac{(-1)^{n-1} x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) \\
+ \cos x &= 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots  + 
+ \frac{(-1)^{n} x^{2n}}{(2n)!} 
+ + o(x^{2n}) \text{\,\,\,}(x \rightarrow 0) \\
+ \log(1+x) &= x - \frac{x^2}{2} + \frac{x^3}{3}  - \cdots   
+ + \frac{ (-1)^{n-1}x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+  \sinh x &= x + \frac{x^3}{3!} + \frac{x^5}{5!} + \cdots  + 
+ \frac{x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) \\
+\end{split}
+\end{align*}
+
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 
+$$
+\frac{1}{1-x} = 1 + x+  x^2 + x^3  + \cdots   
+ + x^{n} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) 
+$$
+となることを示せ.
+
+\end{enumerate}
+
+
+
+
+
+
+\end{document}

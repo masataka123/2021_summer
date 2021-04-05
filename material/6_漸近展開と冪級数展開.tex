@@ -1,0 +1,267 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第6回. 漸近展開とべき級数展開 (三宅先生の本, 2.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/05/25
+\end{flushright}
+
+\section{漸近展開とべき級数展開}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[有限テイラー展開]
+$f(x)$が開区間$I$上の$C^n$級関数とする.
+$a \in I$を固定する.
+任意の$x \in I$について, ある$\theta \in (0,1)$があって
+\begin{align*}
+\begin{split}
+f(x) &= f(a) + f'(a) (x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots \\
+&\cdots +  \frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1} + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n} \\
+&=\sum_{k=0}^{n-1}\frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}
+\end{split}
+\end{align*}
+となる.
+右辺を$x=a$における\underline{有限テーラー展開}と呼び, 
+$R_n=\frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}$を\underline{剰余項}と呼ぶ.
+特に$a=0$のとき, \underline{有限マクローリン展開}と呼ぶ.
+    \end{thm}
+ \end{tcolorbox}
+    
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[ランダウの記号]
+$a$を実数または$\pm \infty$とし, $f(x)$と$g(x)$を$a$の周りで定義された関数とする.
+$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} =0$であるとき
+$$
+f(x) = o(g(x))\text{\,\,\,} (x \rightarrow a) \text{\,\,と書く.}
+$$
+    \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+ \begin{itemize}
+ \item $x^5 = o(x^3) \text{\,\,\,} (x \rightarrow 0) $
+ \item $\sin x = x + o(x^2) \text{\,\,\,} (x \rightarrow 0) $
+ \item 任意の正の実数$\alpha$について, $\log x = o(x^{\alpha}) \text{\,\,\,} (x \rightarrow +\infty) $であり, $x = o(e^{\alpha x}) \text{\,\,\,} (x \rightarrow +\infty)$である.
+ \end{itemize}
+
+ \end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[ランダウの記号の性質]
+$m,n \in \N$とする.
+ \begin{itemize}
+ \item $x^m o(x^n) = o(x^{m+n}) \text{\,\,\,} (x \rightarrow 0) $
+ \item $o(x^m) o(x^n) = o(x^{m+n}) \text{\,\,\,} (x \rightarrow 0) $
+ \item $m \leqq n$ならば$o(x^m) + o(x^n) = o(x^{m}) \text{\,\,\,} (x \rightarrow 0) $
+ \end{itemize}
+    \end{prop}
+ \end{tcolorbox}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[漸近展開]
+$f(x)$を$a$を含む開区間上の$C^n$級関数ならば
+\begin{align*}
+\begin{split}
+f(x) &= f(a) + f'(a) (x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots +  \frac{f^{(n)}(a)}{n!}(x-a)^{n} + o((x-a)^n) \text{\,\,\,}(x \rightarrow a) \\
+\end{split}
+\end{align*}
+となる.
+特に$a=0$の場合は下のようになる.
+\begin{align*}
+\begin{split}
+f(x) &= f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots +  \frac{f^{(n)}(0)}{n!}x^{n} + o(x^n) \text{\,\,\,}(x \rightarrow 0) \\
+\end{split}
+\end{align*}
+    \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+\begin{align*}
+\begin{split}
+e^x &= 1 + x+  \frac{x^2}{2!} + \frac{x^3}{3!}  + \cdots  +  \frac{ x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+\sin x &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots  + 
+ \frac{(-1)^{n-1} x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) 
+\end{split}
+\end{align*}
+ \end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[べき級数展開]
+$f(x)$を$a$を含む開区間上の$C^{\infty}$級関数とする.
+テイラーの定理
+$$
+f(x)=\sum_{k=0}^{n-1}\frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}
+$$
+において, 剰余項$R_n(x)=\frac{f^{(n)}(a + \theta(x-a))}{n!}(x-a)^{n}$とする.
+$b\in I$において$\lim_{n \rightarrow \infty}|R_n(b)| =0$となるならば,
+$$
+f(b)=\sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}(b-a)^k  \text{\,\,\, となる.}
+$$
+    \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+ $f(x)=e^x$とし, $a=0$かつ$b \in \R$とする. このとき剰余項は
+ $$
+ R_n(b) = \frac{e^{b \theta} b^n}{n!}
+ $$
+ である. $\lim_{n \rightarrow \infty}|R_n(b)| =0$であるので, べき級数展開ができ, 
+\begin{align*}
+\begin{split}
+e^b &= \sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}b^k = 1 + b + \frac{b^2}{2!} + \frac{b^3}{3!} + \frac{b^4}{4!} + \cdots 
+\end{split}
+\end{align*}
+ \end{exa}
+ 
+  \begin{exa}
+ $f(x)=\sin x$とし, $a=0$かつ$b \in \R$とする. このとき剰余項は
+ $$
+ R_{2n}(b) = \frac{(-1)^{n}b^{2n} \sin (b \theta) }{(2n)!}
+ $$
+ である. $\lim_{n \rightarrow \infty}|R_n(b)| =0$であるので, べき級数展開ができ, 
+\begin{align*}
+\begin{split}
+\sin b &= \sum_{k=0}^{ \infty }\frac{f^{(k)}(a)}{k!}b^k = 
+ b - \frac{b^3}{3!} + \frac{b^5}{5!} -  \frac{b^7}{7!} +  \cdots 
+\end{split}
+\end{align*}
+ \end{exa}
+ 
+ \section{初等関数の漸近展開}
+
+ 初等関数の$a=0$の周りでの漸近展開の具体例を紹介する.\footnote{なんでもかんでも綺麗に漸近展開できるとは限らない. 例えば$\tan x$などの漸近展開の一般項は非常に難しい.}
+\begin{align*}
+\begin{split}
+e^x &= 1 + x+  \frac{x^2}{2!} + \frac{x^3}{3!}  + \cdots  + 
+ \frac{ x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+\sin x &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots  + 
+ \frac{(-1)^{n-1} x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) \\
+ \cos x &= 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots  + 
+ \frac{(-1)^{n} x^{2n}}{(2n)!} 
+ + o(x^{2n}) \text{\,\,\,}(x \rightarrow 0) \\
+ \log(1+x) &= x - \frac{x^2}{2} + \frac{x^3}{3}  - \cdots   
+ + \frac{ (-1)^{n-1}x^{n}}{n!} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) \\
+  \sinh x &= x + \frac{x^3}{3!} + \frac{x^5}{5!} + \cdots  + 
+ \frac{x^{2n-1}}{(2n-1)!} 
+ + o(x^{2n-1}) \text{\,\,\,}(x \rightarrow 0) \\
+\end{split}
+\end{align*}
+
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 
+$$
+\frac{1}{1-x} = 1 + x+  x^2 + x^3  + \cdots   
+ + x^{n} + o(x^{n}) \text{\,\,\,}(x \rightarrow 0) 
+$$
+となることを示せ.
+
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

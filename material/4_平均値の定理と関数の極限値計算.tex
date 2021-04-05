@@ -1,0 +1,216 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第4回. 平均値の定理と関数の極限値計算 (三宅先生の本, 2.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/05/11
+\end{flushright}
+
+\section{関数の極値}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[極値]
+$f(x)$を区間$I$上の関数とする.
+\begin{itemize}
+\item \underline{$f(x)$が$c\in I$で極大}であるとは, $c$を含む開区間$J$があって, $x \in J$かつ$x \neq c$ならば$f(x) < f(c)$となること.
+このとき, \underline{$f(x)$は$c$で極大である}といい, $f(c)$の値を\underline{極大値}という.
+\item \underline{$f(x)$が$c\in I$で極小}であるとは, $c$を含む開区間$J$があって, $x \in J$かつ$x \neq c$ならば$f(x) > f(c)$となること.
+このとき, \underline{$f(x)$は$c$で極小である}といい, $f(c)$の値を\underline{極小値}という.
+\item  極大値, 極小値の二つ合わせて\underline{極値}という.%極値をとる点$(a,b)$を\underline{極値点}という.
+\end{itemize}
+
+    \end{dfn}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+    $f(x)$が$c \in (a,b)$で極値を持てば, $f'(c) = 0$である.
+    \end{thm}
+\end{tcolorbox}
+
+\section{平均値の定理とその応用}
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x), g(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+\begin{itemize}
+\item (ロルの定理) $f(a) = f(b)$ならば, $f'(c) = 0$となる$c \in (a,b)$がある.
+\item (平均値の定理)
+$$
+f'(c) = \frac{f(b)-f(a)}{b-a}
+$$
+となる$c \in (a,b)$が存在する. 
+\item (コーシーの平均値の定理)
+$g(a) \neq g(b)$かつ任意の$x \in (a,b)$について$g'(x) \neq 0$ならば
+$$
+\frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)}
+$$
+となる$c \in (a,b)$が存在する. 
+\end{itemize}
+
+    \end{thm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+\begin{itemize}
+\item 任意の$x \in (a,b)$について$f'(x)=0$ならば$f$は$[a,b]$上で定数関数.
+\item 任意の$x \in (a,b)$について$f'(x)>0$ならば$f$は$[a,b]$上で単調増加関数.
+\end{itemize}
+
+    \end{thm}
+\end{tcolorbox}
+
+\begin{exa}
+$(\sin x)' = \cos x$より, $\sin x$は$[-\frac{\pi}{2}, \frac{\pi}{2}]$上単調増加.
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ロピタルの定理]
+    $f(x), g(x)$を点$a$の近くで定義された微分可能な関数とする.
+$\lim_{x \rightarrow a} f(x) = \lim_{x \rightarrow a} g(x) =0$かつ
+$\lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$が存在するならば, 
+$\lim_{x \rightarrow a} \frac{f(x)}{g(x)}$も存在して
+$$
+\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}.$$
+    \end{thm}
+\end{tcolorbox}
+\begin{exa}
+$$
+\lim_{x \rightarrow 0} \frac{e^{2x} - \cos x}{x} \text{\,\,を求めよ.}
+$$
+(答.)
+$\lim_{x \rightarrow 0} e^{2x} - \cos x =1-1=0$かつ
+$\lim_{x \rightarrow 0} x=0$であり
+$$
+\lim_{x \rightarrow 0} \frac{(e^{2x} - \cos x)'}{(x)'}
+=
+\lim_{x \rightarrow 0} \frac{2 e^{2x} - \sin x}{1} =2
+$$
+であるため, ロピタルの定理から
+$$
+\lim_{x \rightarrow 0} \frac{e^{2x} - \cos x}{x} =
+\lim_{x \rightarrow 0} \frac{(e^{2x} - \cos x)'}{(x)'}
+=2
+$$
+\end{exa}
+
+
+
+
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 
+$$
+\lim_{x \rightarrow 0} \frac{x - \sin x}{x^3} \text{\,\,を求めよ.}
+$$
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

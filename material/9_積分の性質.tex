@@ -1,0 +1,220 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第9回. 積分の性質 (三宅先生の本, 3.1と3.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/06/15
+\end{flushright}
+
+
+\section{積分の性質}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上の連続関数とし, $F(x)$を$F'(x) = f(x)$となる$[a,b]$上の関数とする.
+このとき
+$$
+\int_{a}^{b} f(x) dx = \Bigl[ F(x) \Bigr]_{a}^{b} = F(b) - F(a) \text{\,\,\,となる.}
+$$
+        \end{thm}
+    \end{tcolorbox}
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[積分の性質]
+$f(x), g(x)$共に$[a,b]$上の連続関数とし, $G(x) = \int g(x) dx$とする.
+\begin{enumerate}
+\item $\int_{a}^{b} (f(x) \pm g(x)) dx = \int_{a}^{b} f(x) dx \pm \int_{a}^{b} g(x) dx$
+\item $k$を定数とするとき, $\int_{a}^{b} kf(x) dx  = k \int_{a}^{b} f(x) dx $
+\item (置換積分法)    $$
+\begin{array}{cccc}
+x(t): &[\alpha, \beta]& \rightarrow & [a,b]\\
+&t& \longmapsto & x(t)
+\end{array}
+$$
+を$C^1$級関数とし, $a = x(\alpha), b=x(\beta)$とするとき
+$$
+\int_{a}^{b} f(x) dx = \int_{\alpha}^{\beta} f(x(t)) \drv{x(t)}{t} dt \text{\,\,\,となる.}
+$$
+\item (部分積分法)  $f(x)$が$C^1$級であるとき,
+$$
+\int_{a}^{b} f(x) g(x)dx = \Bigl[ f(x) G(x)\Bigr]^{b}_{a} - \int_{a}^{b}f'(x) G(x)dx
+\text{\,\,\,となる.}$$
+\end{enumerate}
+
+        \end{prop}
+    \end{tcolorbox}
+
+\section{不定積分の例}
+簡単な積分に関してまとめておく. %(以下は覚えなくても良い.) 
+積分定数に関しては省略する. また$a$を実数とする.
+  \begin{align*}
+\begin{split}
+\int x^a \,dx &= \frac{x^{a+1}}{a+1} \text{\,\,\, ($a \neq -1$のとき)}\\
+\int \frac{1}{x} \,dx &= \log |x|\\
+\int \frac{1}{\sqrt{a^2 - x^2}} \,dx &= \Sin \frac{x}{|a|} \text{\,\,\, ($a \neq 0$のとき)}\\
+\int \frac{1}{a^2 + x^2} \,dx &= \frac{1}{a}\Tan \frac{x}{a} \text{\,\,\, ($a \neq 0$のとき)}\\
+\int e^x \,dx &=e^x\\
+\int a^x \,dx &=\frac{1}{\log a}a^x \text{\,\,\, ($a>0$かつ$a \neq 1$のとき)} \\
+\int \log x  \,dx &=x \log x -x\\
+\int \sin x  \,dx &=-\cos x \\
+\int \cos x  \,dx &=\sin x \\
+\int \frac{1}{(\cos x)^2}  \,dx &=\tan x \\
+\end{split}
+\end{align*}
+ 
+\section{ウォリスの公式}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+ $n$を自然数として, 
+ $$I_n = \int_{0}^{\frac{\pi}{2}} (\cos t)^n dt =\int_{0}^{\frac{\pi}{2}} (\sin t)^n dt \text{\,\,とする.}$$
+$n$が偶数のとき, 
+$$
+ I_n =  
+ \frac{(n-1)!!}{n!!}\frac{\pi}{2} 
+ =
+ \frac{n-1}{n}\cdot\frac{n-3}{n-2} \cdots \frac{3}{4}\cdot\frac{1}{2}\cdot \frac{\pi}{2}\text{\,\,であり.}
+$$
+$n$が奇数のとき, 
+$$
+ I_n =  \frac{(n-1)!!}{n!!} 
+ =
+ \frac{n-1}{n}\cdot\frac{n-3}{n-2} \cdots \frac{4}{5}\cdot\frac{2}{3} \cdot 1 \text{\,\,である.}
+ $$
+        \end{thm}
+    \end{tcolorbox}
+    \footnote{$n!!$は二重階乗と呼ばれる. $n$を正の自然数として, $(2n-1)!!=(2n-1)(2n-3) \cdots 3\cdot1 $, $(2n)!!=(2n)(2n-2) \cdots 4\cdot2 $である. 便宜上$0!!=1$とする.($0!=1$であるので.)}
+    
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ウォリスの公式]
+  \begin{align*}
+  \begin{split}
+\frac{\pi}{2} 
+&=
+ \lim_{m\rightarrow \infty} \frac{(2m)^2}{ (2m+1)(2m-1)} \cdot 
+ \frac{(2(m-1))^2}{ (2m-1)(2m-3)} \cdots \frac{2^2}{3\cdot1 }  \\
+& =
+  \lim_{m\rightarrow \infty}\frac{1}{(1- \frac{1}{4m^2})} \cdot \frac{1}{(1- \frac{1}{4(m-1)^2})}
+  \cdots \frac{1}{(1- \frac{1}{4})} \text{\,\,となる.}
+  \end{split}
+   \end{align*}
+つまり
+$$
+\frac{\pi}{2} 
+=
+\frac{2 \cdot 2}{1 \cdot 3} \cdot \frac{4 \cdot 4}{3 \cdot 5} 
+\cdot \frac{6 \cdot 6}{5 \cdot 7}\cdot \frac{8 \cdot 8}{7 \cdot 9}
+ \cdots  \text{\,\, である.}
+$$
+   
+        \end{thm}
+    \end{tcolorbox}
+         \footnote{ 積の記号を使って書けば, $$\frac{\pi}{2} =\lim_{m\rightarrow \infty}\frac{1}{(1- \frac{1}{4m^2})} \cdot \frac{1}{(1- \frac{1}{4(m-1)^2})}\cdots \frac{1}{(1- \frac{1}{4})} = \Pi_{i=0}^{\infty} \frac{1}{(1- \frac{1}{4i^2})}\text{\,\, である.}$$}
+ 
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 不定積分$\int x\log x \,dx$を求めよ.
+%\item 不定積分$\int \log x \,dx$を求めよ
+%\item 定積分$\int_{0}^{1} x  e^{2x} \,dx$を求めよ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

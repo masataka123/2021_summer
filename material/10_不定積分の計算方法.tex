@@ -1,0 +1,230 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第10回. 不定積分の計算方法 (三宅先生の本, 3.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/06/22
+\end{flushright}
+
+
+\section{不定積分の計算方法・テクニック}
+\subsection{有理式の場合}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[有理式]
+  $f(x)$と$g(x)$を実数係数多項式とするとき, \underline{$\frac{f(x)}{g(x)}$を有理式}という.
+        \end{dfn}
+    \end{tcolorbox}
+
+以下$f(x)$と$g(x)$を同時に割り切る多項式はないものと仮定する.(つまり$f(x)$と$g(x)$は互いに素とする.)
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[有理式]
+有理式$\frac{f(x)}{g(x)}$は次の3つの式の和に分解できる.
+\begin{enumerate}
+\item 多項式
+\item $\frac{a}{(x+b)^m}$ ($a,b \in \R, m\in \N$)
+\item $\frac{ax + b}{(x^2 + cx +d)^m}$ ($a,b,c,d \in \R, m\in \N$)
+\end{enumerate}
+特に$\alpha_1, \ldots, \alpha_l \in \R$と$m_1, \ldots, m_l \in \N$を用いて
+$g(x) = (x- \alpha_1)^{m_1} \cdots (x- \alpha_l)^{m_l} $と書けるとき, 
+有理式$\frac{f(x)}{g(x)}$は多項式と$\frac{\beta_i}{(x- \alpha_i)^m}$ ($\beta_i \in \R, m\in \N$, $1 \leqq m\leqq m_i$)の和で表せられる.
+        \end{thm}
+    \end{tcolorbox}
+\begin{exa}
+$\frac{5x -4 }{2x^2 + x -6}$に関して上の定理より, 
+$$
+\frac{5x -4 }{2x^2 + x -6} = \frac{a}{2x-3} + \frac{b}{x+2}
+$$
+となる実数$a,b \in \R$が存在する.
+通分して計算すると$a=1, b=2$をえる.
+
+\end{exa}
+\begin{exa}
+$$
+\frac{2}{(x-1)(x^2 + 1)} = \frac{1}{x-1} - \frac{x+1}{x^2 + 1}
+$$
+\end{exa}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+有理式の不定積分は計算できる.
+        \end{thm}
+    \end{tcolorbox}
+\begin{exa}
+$$
+\int \frac{5x -4 }{2x^2 + x -6}dx = \int \frac{1}{2x-3} dx+ \int \frac{2}{x+2}dx
+= \frac{1}{2}\log|2x-3| + 2 \log |x+2|
+$$
+$$
+\int \frac{2}{(x-1)(x^2 + 1)} dx = \int \frac{1}{x-1}dx  - \int \frac{x+1}{x^2 + 1}dx
+= \log|x-1| - \frac{1}{2} \log |x^2+1|- \Tan x
+$$
+\end{exa}
+
+\subsection{無理関数がある場合}
+テクニックだけまとめておく.
+\begin{itemize}
+\item $\sqrt[n]{ax + b}$に関して, $t= \sqrt[n]{ax + b}$とおくと
+$$
+x = \frac{t^n - b}{a}, dx = \frac{n t^{n-1} dt}{a}
+$$
+より有理式に帰着できる.
+\item $\sqrt{ax^2 + b x + c}$に関して, $a>0$ならば$\sqrt{ax^2 + b x + c} = t - \sqrt{a} x$とおく.
+\item $\sqrt{ax^2 + b x + c}$に関して, $ax^2 + b x + c = (x - \alpha)(x- \beta)$となる実数$\alpha, \beta \in \R$があるとき, $t = \sqrt{\frac{a(x - \beta)}{(x-\alpha)}}$とおく.
+\end{itemize}
+
+\begin{exa}
+不定積分$\int \frac{dx}{x + 2 \sqrt{x-1}}$を求めよ.
+
+\hspace{-18pt}(答.) $t = \sqrt{x-1}$とおくと, $x = t^2 +1, dx = 2tdt$より
+\begin{align*}
+\begin{split}
+\int \frac{dx}{x + 2 \sqrt{x-1}}
+&= \int \frac{2t}{t^2 + 1 + 2t} dt= \int \frac{2t + 2 -2}{(t + 1)^2} dt \\
+&=  \int \frac{2}{t + 1} dt -  \int \frac{2}{(t + 1)^2} dt \\
+&= 2 \log |t+1| + \frac{2}{t+1} \\
+&= 2 \log (1 + \sqrt{x-1}) + \frac{2}{1 + \sqrt{x-1}}
+\end{split}
+\end{align*}
+
+\end{exa}
+
+\subsection{三角関数の有理式の積分}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+三角関数に関する有理式の不定積分は計算できる.
+具体的には$t = \tan \frac{x}{2}$とおけば, $\sin x$などは次のように表される.
+\begin{itemize}
+\item $dx = \frac{2 dt}{1+ t^2}$
+\item $\sin x = \frac{2t}{1+ t^2}$
+\item $\cos x = \frac{1 - t^2}{1+ t^2}$
+\item $\tan x = \frac{2t}{1- t^2}$
+\end{itemize}
+
+
+        \end{thm}
+    \end{tcolorbox}
+    
+\begin{exa}
+不定積分$\int \frac{1 + \sin x}{1 + \cos x} dx$を求めよ.
+
+\hspace{-18pt}(答.) $t = \tan \frac{x}{2}$とおくと, 
+\begin{align*}
+\begin{split}
+\int \frac{1 + \sin x}{1 + \cos x} dx
+&= \int \frac{1 + \frac{2t}{1+t^2} }{ 1+ \frac{1-t^2}{1+ t^2}} 
+\frac{2dt}{1+ t^2} = \int \frac{t^2 + 2t + 1}{1+ t^2} dt = \int 1 +\frac{2t}{1+ t^2} dt \\
+&= t + \log (1 + t^2) = \tan \frac{x}{2} + \log \left|1 + \left(\tan \frac{x}{2} \right)^2 \right|\\
+\end{split}
+\end{align*}
+
+\end{exa}
+
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 不定積分$\int \frac{x^2}{x^2 - x - 6}dx$を求めよ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

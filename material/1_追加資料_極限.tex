@@ -1,0 +1,424 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+\begin{center}
+{\Large 第1回追加資料. 極限に関する厳密な定義 (三宅先生の本, 1.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/13
+\end{flushright}
+
+\section{はじめに}
+この追加資料は第2回の内容を含みます.
+またかなり難しい部分もあるので理解できなくても構いません.
+(この内容を飛ばしてもらっても構いません.)
+私はこの授業において追加資料の内容($\epsilon$-$\delta$論法等)はほぼ使いません.
+後期の先生によってはこの回の内容を使う可能性もあるので, その場合にはこの資料を見ていただければ幸いです.
+
+\subsection{数列の極限と$\epsilon$-$N$論法}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$N$論法を用いた厳密な極限の定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, 
+任意の正の実数$\epsilon $について, ある$N \in \N$があって, $N < n$ならば
+$|a_n - \alpha| <\epsilon$となること.
+このとき $$
+\lim_{n \rightarrow \infty} a_n =\alpha \text{\,\,\,と書く.}$$
+ \end{dfn}
+ \end{tcolorbox}
+
+ 
+\begin{exa}
+$a_n = \frac{1}{n}$とする. 数列$\{ a_n\}$は0に収束する.
+
+\hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+$N = [\frac{1}{\epsilon}] + 1$をおくと
+$
+\frac{1}{N} = \frac{1}{ [\frac{1}{\epsilon}] + 1 } \leqq \frac{1}{\frac{1}{\epsilon}} = \epsilon$であるため,
+$$
+N<n\text{\,\,\, ならば}|a_n -0| = \left|\frac{1}{n}-0\right| < \frac{1}{N} \leqq \epsilon \text{\,\,\, となる.}
+$$
+
+
+以上より, 任意の$\epsilon >0$について, ある$N$(具体的には$[\frac{1}{\epsilon}] + 1$)があって, $N < n$ならば$|a_n - 0| <\epsilon$となるので, 
+数列$\{ a_n\}$は0に収束する.
+\end{exa}
+
+ 
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} b_n = \beta$とするとき$\lim_{n \rightarrow \infty} (a_n + b_n) = \alpha + \beta$となる.
+\end{prop}
+ \end{tcolorbox}
+ \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N_1, N_2$があって
+$$
+N_1 < n \text{\,\,\, ならば} |a_n - \alpha | < \frac{\epsilon}{2}
+$$
+$$
+N_2 < n \text{\,\,\, ならば} |b_n - \beta | < \frac{\epsilon}{2}
+$$
+ となる. 以上より$N = \max(N_1, N_2)$とおくと
+ $N<n$ならば
+ $$
+ |(a_n + b_n) -  (\alpha + \beta)|
+ \leqq |a_n - \alpha| + |b_n - \beta| <  \frac{\epsilon}{2} +  \frac{\epsilon}{2}
+ = \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$N$ (具体的には$\max(N_1, N_2)$)があって, 
+ $N < n$ならば$ |(a_n + b_n) -  (\alpha + \beta)| <\epsilon$となるので, 
+数列$\{ a_n + b_n\}$は$\alpha + \beta$に収束する.
+
+授業で紹介した収束の極限の性質の証明は上のようにやれば良い.
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の一意性]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} a_n = \beta$ならば$\alpha = \beta$である.
+\end{prop}
+ \end{tcolorbox}
+ 
+  \hspace{-18pt}(証.) 
+ $\alpha \neq \beta$として矛盾を示す.
+% $\alpha < \beta$と仮定して良い.
+ $\epsilon  = \frac{|\alpha - \beta |}{3}$とおくと, ある$N_1, N_2$があって
+$$
+N_1 < n \text{ならば} |a_n - \alpha | < \frac{\epsilon}{3}
+\text{\,\,かつ\,\,}
+N_2 < n \text{ならば} |a_n - \beta | < \frac{\epsilon}{3}
+\text{ となる.}
+$$
+ 以上より$m = \max(N_1, N_2) + 1$とおくと
+ $N_1 <m$かつ$N_2 <m$より
+ $$
+ |\alpha - \beta|
+ \leqq |a_m - \alpha| + |a_m- \beta| <  \frac{\epsilon}{3} +  \frac{\epsilon}{3}
+ = \frac{2}{3} |\alpha - \beta|
+ $$
+ である. しかし$ |\alpha - \beta|>0$より矛盾である.
+
+
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[はさみうちの原理.]
+$a_n \leqq b_n \leqq c_n$となる数列$\{ a_n \}$, $\{ b_n \}$, $\{ c_n \}$
+に関して
+$\lim_{n \rightarrow \infty }a_n = \lim_{n \rightarrow \infty }c_n =\alpha$
+ならば
+$\lim_{n \rightarrow \infty }b_n =\alpha$である.
+ \end{thm}
+ \end{tcolorbox}
+   \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N_1, N_2$があって
+$$
+N_1 < n \text{ならば} |a_n - \alpha | < \epsilon
+\text{\,\,かつ\,\,}
+N_2 < n \text{ならば} |c_n - \alpha | < \epsilon
+\text{ となる.}
+$$
+ 以上より$N = \max(N_1, N_2)$とおくと
+ $N<n$ならば
+ $a_n - \alpha \leqq b_n -\alpha \leqq c_n - \alpha $であるので
+ $$
+ |b_n -\alpha |
+ \leqq \max (|a_n - \alpha| , |c_n - \alpha |) < \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$N$ (具体的には$\max(N_1, N_2)$)があって, 
+ $N < n$ならば$ |b_n - \alpha| <\epsilon$となるので, 
+数列$\{ b_n\}$は$\alpha $に収束する.
+ 
+ 
+授業でちょっとだけ触れたコーシー列や実数の構成に関しても触れておきます.
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[コーシー列]
+数列\underline{$\{ a_n\}$がコーシー列}とは, 任意の$\epsilon >0$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となること.
+ \end{dfn}
+ \end{tcolorbox}
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[収束するならばコーシー列]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$ならば$\{ a_n\}$はコーシー列.
+\end{prop}
+ \end{tcolorbox}
+    \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$N$があって
+$$
+N< n \text{\,\,\, ならば} |a_n - \alpha | < \frac{\epsilon}{2}
+$$
+となる. 以上より$N <n,m$ならば
+ $$
+ |a_n -a_m |
+ \leqq |a_n - \alpha|  + |a_m - \alpha | < \epsilon
+ $$
+となるので, 
+数列$\{ a_n\}$はコーシー列である.
+
+\begin{exa}
+逆に「コーシー列は収束するのか?」と思うが
+これはどの世界で数列を考えているかによる.
+有理数列$a_n$がコーシー列であっても, 数列$\{ a_n\}$が\underline{有理数には収束しない}こともあります.
+
+例として数列$\{ a_n\}$を
+$$
+a_n = \text{$\sqrt{2}$の小数第$n$位まで}
+$$
+とおく. 
+具体的には
+$$
+a_1 = 1.4, a_2 = 1.41, a_3=1.414, a_4 = 1.4142, \cdots
+$$
+である. このとき$a_n$は有理数列でありコーシー列だが
+$a_n$は$\sqrt{2}$に収束するため, 
+\underline{$a_n $は有理数には収束しない.}
+(もちろん実数には収束してます)
+\end{exa}
+
+よって有理数の世界だけ考えても解析をするには少々不便である.(極限操作をするから.)
+したがってどんなコーシー列でも収束し, 有理数を含む最小の世界があれば良いと思われる.
+その思いからできたのが実数である.
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の存在]
+ $\Q$を有理数の集合とする.
+このとき$\Q$を含む集合$X$があって, 次を満たす.
+\begin{enumerate}
+\item 任意の$x \in X$に関して, ある有理数列$\{ a_n\}$があり, $\lim_{n \rightarrow \infty} a_n = x$となる.
+\item $X$上の数列$\{ a_n\}$がコーシー列ならば, ある$\alpha  \in X$があり, $\lim_{n \rightarrow \infty} a_n = \alpha$となる. (コーシー列は収束する.)
+\end{enumerate}
+
+この\underline{$X$を$\R$と書き, 実数の集合}と呼ぶ.
+
+%ここで数列$\{ a_n\}$がコーシー列とは任意の正の実数$\epsilon \in \R$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となる数列のこととする.
+
+ \end{thm}
+ \end{tcolorbox}
+ \footnote{この証明は集合と位相という数学科の2年くらいで学ぶ内容です. 証明は難しいです.}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の連続性]
+上に有界な単調増加数列$\{a_n\}$は収束する.
+
+ \end{thm}
+ \end{tcolorbox}
+ 
+  \hspace{-18pt}(証.) 
+$a_n$がコーシー列であることを示す.
+$\{ a_n \}$は上に有界なので, $a_n<0$として良い.
+もしコーシー列でないとすると, ある$\epsilon>0$があり, 任意の$N$について$N<n<m$となる$n,m$があって$|a_n - a_m| \geqq \epsilon $となる.
+
+そこで新たに数列$\{b_l\}$を次のように定義する.
+まず$1<n_1<m_1$となる$n_1,m_1$があって$|a_{n_1} - a_{m_1}| \geqq \epsilon $である.
+よって, $b_1 = a_{n_1}, b_2 = a_{m_1}$とおく.
+次に$k_2 = m_{1}+1$とおくと,
+$k_2<n_2<m_2$となる$n_2,m_2$があって$|a_{n_2} - a_{m_2}| \geqq \epsilon $である.
+よって, $b_3 = a_{n_2}, b_4 = a_{m_2}$とおく.
+これを繰り返し行うことで帰納的に数列$\{b_l\}$を定める.
+
+構成方法から$\{b_l\}$は単調増加で, $b_l <0$である．
+さらに任意の自然数$l$について, $b_{2l} - b_{2l-1} \geqq \epsilon$かつ
+$b_{2l +1} - b_{2l} \geqq 0$である.
+以上より任意の自然数$l$について
+$$
+b_{2l} = (b_{2l} - b_{2l-1}) + (b_{2l-1} - b_{2l-2}) + \cdots + (b_2 - b_1)
++b_1 \geqq
+b_1 + l\epsilon$$
+である.
+ $b_{2l }<0$のため, 任意の自然数$l$について
+$
+b_1 + l\epsilon <0
+$
+である.
+ しかし, $\epsilon>0$であったため, これは矛盾である.
+ 
+
+\section{関数の極限}
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$\delta$論法を用いた厳密な極限の定義]
+$f(x)$を$x=a$の周りで定義された関数とする．
+\underline{$f(x)$が$x=a$で$\alpha \in \R$に収束する}とは
+任意の正の実数$\epsilon$について, ある正の実数$\delta$があって, 
+$|x - a|< \delta$ならば
+$|f(x)- \alpha| <\epsilon$となること.
+このとき $$
+\lim_{x \rightarrow a} f(x) =\alpha \text{\,\,\,と書く.}$$
+ \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+$f(x) = x^2$は$x=0$で0に収束する.
+
+\hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+$\delta = \sqrt{\epsilon}$をおくと
+$|x - 0| < \delta$ならば
+$$
+|f(x)-0| = |x^2| < \delta^2 = \epsilon \text{\,\,\, となる.}
+$$
+以上より, 任意の$\epsilon >0$について, ある$\delta$(具体的には$\sqrt{\epsilon}$)があって, $|x - 0| < \delta$ならば$|f(x)-0| <\epsilon$となるので, 
+関数$f(x) = x^2$は$x=0$で0に収束する.
+\end{exa}
+
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $\lim_{x \rightarrow a} f(x) = \alpha$, 
+    $\lim_{x \rightarrow a} g(x)= \beta$とするとき$\lim_{x \rightarrow a}
+     (f(x) + g(x)) = \alpha + \beta$となる.
+\end{prop}
+ \end{tcolorbox}
+ \hspace{-18pt}(証.) 
+任意の$\epsilon >0$について
+ある$\delta_1, \delta_2 >0$があって
+$$
+| x - a| < \delta_1\text{ならば} |f(x)- \alpha | < \frac{\epsilon}{2}
+\text{\,\,かつ\,\,}
+| x - a| < \delta_2\text{ならば} |g(x)- \beta | < \frac{\epsilon}{2}
+\text{\,\,となる. }
+$$
+以上より$\delta = \min(\delta_1, \delta_2)$とおくと, $| x - a| < \delta$ならば
+ $$
+ |(f(x) + g(x)) -  (\alpha + \beta)|
+ \leqq |f(x) - \alpha| + |g(x) - \beta| <  \frac{\epsilon}{2} +  \frac{\epsilon}{2}
+ = \epsilon
+ $$
+ である.
+ 以上より, 任意の$\epsilon >0$について, ある$\delta$ (具体的には$\min(\delta_1, \delta_2)$)があって, 
+ $| x - a| < \delta$ならば$ |(f(x) + g(x)) -  (\alpha + \beta)| <\epsilon$となるので, 
+$\lim_{x \rightarrow a} (f(x) + g(x)) = \alpha + \beta$となる.
+
+
+授業で紹介した収束の極限の性質の証明は上のようにやれば良い.
+
+
+\section{最後に}
+少々書きすぎてしまったが, この内容は理解する必要はないです.
+この内容が必要になることはあまりないと思います.\footnote{まあ一種の無駄知識と思っていただければ幸いです. 私はこの内容が一番面白いですが...}
+ 
+
+\end{document}

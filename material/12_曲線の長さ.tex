@@ -1,0 +1,197 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第12回. 曲線の長さ (三宅先生の本, 3.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/07/06
+\end{flushright}
+
+
+
+\section{曲線の定義と曲線の長さ}
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+ %   \text{}\begin{itemize}\item 
+%関数 $\vec{p}(t)$ を次で定める.
+$$
+\begin{array}{ccccc}
+C: &[a,b] & \rightarrow & \R^2 & \\
+&t & \longmapsto &(x(t), y(t))&
+\end{array}
+$$
+が \underline{滑らかな曲線}とは次の2条件を満たすこと.
+\begin{itemize}
+\item $x(t),y(t)$共に$[a,b]$上の$C^1$級関数.
+\item 任意の$t \in (a,b)$について, 速度ベクトル$ (x'(t), y'(t))\neq  (0,0)$である.
+\end{itemize}
+%\item \underline{曲線$C: \vec{p}(t) (a \leqq t \leqq b)$が区分的に滑らかな曲線}とは滑らかな曲線を端点でつないだもの.\end{itemize}
+
+滑らかな曲線$C$に関してその長さを
+$$
+l(C) = \int_{a}^{b} \sqrt{(x'(t))^2 + (y'(t))^2} dt \text{\,\,\, とする.}
+$$
+     \end{dfn}
+ \end{tcolorbox}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$f(x)$を$[a,b]$上の$C^1$級関数とする. このとき$y=f(x)$のグラフ$C=\{ (x, f(x))\,\,| \,\, a \leqq x \leqq b\}$の長さは
+$$
+l(C) = \int_{a}^{b} \sqrt{1 + (f'(x))^2} dx \text{\,\,\, である.}
+$$
+     \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+ 放物線$y=x^2 (0 \leqq x \leqq 1)$のグラフの長さを求めよ.
+ 
+\hspace{-18pt} (答.) $f(x) = x^2$とすると$f'(x) = 2x$のため, 曲線の長さは\begin{align*}
+\begin{split}
+\int_{0}^{1} \sqrt{1 + (2x)^2} dx &= 
+\int_{0}^{1} \sqrt{1 +4x^2} dx = 
+\frac{1}{2}\int_{0}^{2} \sqrt{1 +t^2} dt \\
+&= \frac{1}{4}\left[ t\sqrt{t^2 + 1} + \log \Bigl| t + \sqrt{t^2 + 1 }\Bigr| \right]^{2}_{0} \\
+&= \frac{1}{4} \left(2 \sqrt{5} + \log (2 + \sqrt{5})\right)
+\end{split}
+\end{align*}
+ \end{exa}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$[\alpha,\beta]$上の$C^1$級関数$f( \theta )$を用いて, 曲線$C$が
+$$
+\begin{array}{ccccc}
+C: &[\alpha, \beta] & \rightarrow & \R^2 & \\
+&\theta & \longmapsto &(f(\theta) \cos \theta, f(\theta) \sin \theta)&
+\end{array}
+$$
+%$$C: (x(\theta), y(\theta)) = (f(\theta) \cos \theta, f(\theta) \sin \theta)$$
+と表されているとき, $C$の長さは
+$$
+ \int_{\alpha}^{\beta} \sqrt{(f(\theta))^2 + (f'(\theta))^2} d\theta \text{\,\,\, である.}
+$$
+     \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+(アルキメデスの螺旋)
+正の実数$a , \alpha $について
+$$
+\begin{array}{ccccc}
+C: &[0,\alpha] & \rightarrow & \R^2 & \\
+&\theta & \longmapsto &(a \theta \cos \theta ,  a \theta \sin \theta)&
+\end{array}
+$$
+ とする. 曲線$C$の長さを求めよ.
+ 
+\hspace{-18pt} (答.) $f(\theta) = a \theta$とすると$f'(\theta) = a$のため, 曲線の長さは\begin{align*}
+\begin{split}
+\int_{0}^{\alpha} \sqrt{a^2 + (a \theta)^2} d\theta = 
+a \int_{0}^{\alpha} \sqrt{1+ (\theta)^2} d\theta = 
+\frac{a}{2}\left(\alpha\sqrt{\alpha^2 + 1} + \log (\alpha + \sqrt{\alpha^2 + 1})\right)
+\end{split}
+\end{align*}
+ \end{exa}
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item 正の実数$a,b$について$f(x) = a \cosh \frac{x}{a} -a$とする.
+グラフ$C=\{ (x, f(x))\,\,| \,\, 0 \leqq x \leqq b\}$の長さを$a,b$を用いて表せ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

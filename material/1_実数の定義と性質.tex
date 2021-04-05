@@ -1,0 +1,308 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第1回. 実数の定義と性質 (三宅先生の本, 1.1と1.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/13
+\end{flushright}
+
+\section{記法に関して}
+以下この授業を通してよく使う記号や用語をまとめる.
+(興味がなければ飛ばして良い)
+
+\subsection{よく使う記号}
+\begin{itemize}
+\item $\N =\{ \text{自然数全体}\} = \{ 1,2,3,4,5,\cdots\}$
+\item $\Z =\{ \text{整数全体}\} = \{ 0, \pm1, \pm 2,\cdots\}$
+\item $\Q =\{ \text{有理数全体} \} = \left\{ \frac{m}{n} \,\,|\,\,  m,n \in \Z , n \neq 0 \right\}$
+\item $\R =\{ \text{実数全体}\} $
+\item $\R \setminus \Q=\{ x \in \R \,\, | \,\, x \not \in \Q\} = \{ \text{無理数全体}\} $
+\end{itemize}
+
+\subsection{区間}
+\begin{itemize}
+\item $ [a,b] = \{ x \in \R \,\,| \,\, a \leqq x \leqq b\}$ ($a,b$ 共に実数)
+\item $ [a,b) = \{ x \in \R \,\,| \,\, a \leqq x < b\}$ ($a$は実数, $b$は実数または$+\infty$)\footnote{$+ \infty$は実数ではないが限りなく大きなものとして扱います. 一種の記法です. $- \infty$も同様に限りなく小さいものとして扱います.}
+\item $ (a,b] = \{ x \in \R \,\,| \,\, a < x \leqq b\}$ ($a$は実数または$-\infty$, $b$は実数)
+\item $ (a,b) = \{ x \in \R \,\,| \,\, a < x < b\}$ ($a$は実数または$-\infty$, $b$は実数または$+\infty$)
+\end{itemize}
+
+特に\underline{$(a,b)$を開区間}といい, \underline{$ [a,b]$を閉区間}という.
+この記法により, $\R = (- \infty, + \infty)$である.
+
+\begin{exa}
+$A=[-1, 1], B =[-2, -1), C=[2, +\infty)$とする.
+$A \cap B $は空集合である. $A$のみ閉区間であり, 開区間はこの中にはない.
+\end{exa}
+
+\subsection{有界集合}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+$A$を$\R$の部分集合とする.
+\begin{itemize}
+\item \underline{$A$が上に有界}であるとは, ある実数$a$があって, 任意の(すべての) $x \in A$について$x \leqq a$となること. ($A \subset (- \infty, a]$に同じ.)
+\item \underline{$A$が下に有界}であるとは, ある実数$a$があって, 任意の$x \in A$について$a \leqq x$となること. ($A \subset [a, +\infty)$に同じ.)
+\item \underline{$A$が有界}であるとは, 上にも下にも有界であること. (ある正の実数$a$があって, $A \subset [-a, a]$となることと同じ.)
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+$A=[-1, 1], B =[-2, -1), C=[2, +\infty)$とする.
+$A, B $は有界集合である. 
+$C$は下に有界であるが, 上に有界ではない.
+\end{exa}
+
+\subsection{数列と数列の極限}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+各自然数$n$について, 実数$a_n$を対応させたものを$\{a_n\}_{n=1}^{\infty}$と
+書き, \underline{数列}と呼ぶ.
+\begin{itemize}
+\item 常に$a_n \in \Q$であるとき, \underline{有理数列}という.
+\item $\{ a_n \,\,|\,\, n \in \N \} $が有界であるとき, \underline{有界数列}という.
+\item $a_1 \leqq a_2 \leqq a_3 \leqq \cdots $であるとき, \underline{単調増加数列}という.
+\item $a_1 \geqq a_2 \geqq a_3 \geqq \cdots $であるとき, \underline{単調減少数列}という.
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+  
+ \begin{exa}
+ \begin{itemize}
+\item $a_n = \frac{1}{n}$からなる数列は有理数列, 有界数列, 単調減少数列である.
+\item $a_n = n$からなる数列は有理数列, 単調増加数列である.
+\item $a_n = (-1)^{n} \sqrt{2}$からなる数列は有界数列である.
+ \end{itemize}
+\end{exa}
+
+%さて数列の極限の定義をする. まずはラフな定義をする.
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[数列の極限の感覚的な定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, $n$を大きくしていくと$a_n$が$\alpha$に限りなく近づくこと.
+このとき
+$$
+\lim_{n \rightarrow \infty} a_n = \alpha \text{\,\,または\,\,} 
+a_n \xrightarrow[n \rightarrow \infty]{} \alpha 
+$$
+とかき, \underline{$a_n$は$\alpha$に収束する}という.
+$a_n$が収束しないとき, \underline{$a_n$は発散する}という.
+
+\hspace{12pt}%数列が$\{a_n\}_{n=1}^{\infty}$が
+$n$を大きくしていくと, $a_n$が限りなく大きくなるとき, \underline{$\lim_{n \rightarrow \infty} a_n =+\infty $と書く.}
+限りなく小さくなるとき, \underline{$\lim_{n \rightarrow \infty} a_n   = - \infty $と書く.}
+ \end{dfn}
+ \end{tcolorbox}
+
+
+これでも良いのだが, 万が一のため数列の極限の厳密な定義も書いておく. \footnote{この授業では$\epsilon$-$N$論法を用いた厳密な証明はしないつもりだが, 念のため定義をします. 詳しいことは追加資料で書きます. 後期の担当の先生によっては$\epsilon$-$N$論法や$\epsilon$-$\delta$論法を使うかもしれないので, 後期で分からなくなった場合, 適宜利用してください.}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[$\epsilon$-$N$論法を用いた厳密な極限の定義]
+\underline{数列が$\{a_n\}_{n=1}^{\infty}$が極限$\alpha \in \R$を持つ}とは, 
+任意の正の実数$\epsilon $について, ある$N \in \N$があって, $N < n$ならば
+$|a_n - \alpha| <\epsilon$となること.
+ \end{dfn}
+ \end{tcolorbox}
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の存在]
+ $\Q$を有理数の集合とする.
+このとき$\Q$を含む集合$X$があって, 次を満たす.
+\begin{enumerate}
+\item 任意の$x \in X$に関して, ある有理数列$\{ a_n\}$があり, $\lim_{n \rightarrow \infty} a_n = x$となる.
+\item $X$上の数列$\{ a_n\}$がコーシー列ならば, ある$\alpha \in X$があり, $\lim_{n \rightarrow \infty} a_n = \alpha$となる. (コーシー列は収束する.)
+\end{enumerate}
+
+この\underline{$X$を$\R$と書き, 実数の集合}と呼ぶ.
+
+\hspace{12pt}ここで数列$\{ a_n\}$がコーシー列とは任意の正の実数$\epsilon$について, ある$N \in \N$があって, $N < m,n$ならば$|a_n - a_m| < \epsilon$となる数列のこととする.
+
+
+ \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[実数の連続性]
+    \label{realconti}
+$\R$上の上に有界な単調増加数列は収束する.
+
+ \end{thm}
+ \end{tcolorbox}
+同様に $\R$上の下に有界な単調減少数列は収束する.
+ 
+  \begin{exa}
+ %\begin{itemize}
+$a_n = \frac{1}{n}$は下に有界な単調減少数列である. よって定理\ref{realconti}から数列$\{ a_n\}$は収束する.
+実際$\lim_{n \rightarrow \infty} a_n =0$である. 
+%\item $a_n = n$は収束しない. ちなみに単調増加数列だが有界ではない.
+%\item $a_n = (-1)^{n} \sqrt{2}$も収束しない. ちなみに有界だが単調増加(減少)数列ではない.
+% \end{itemize}
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の性質]
+  $\lim_{n \rightarrow \infty} a_n = \alpha$, 
+    $\lim_{n \rightarrow \infty} b_n = \beta$, $c \in \R$とするとき,  以下が成り立つ.
+ \begin{itemize}
+ \item $\lim_{n \rightarrow \infty} (a_n \pm b_n) = \alpha \pm \beta$
+  \item $\lim_{n \rightarrow \infty} (c a_n ) = c\alpha $
+   \item $\lim_{n \rightarrow \infty} (a_n b_n) = \alpha  \beta$
+    \item $\lim_{n \rightarrow \infty} \frac{a_n}{b_n} = \frac{\alpha}{\beta}$ 
+    ($\beta \neq 0$のとき.)
+ \end{itemize}
+  
+        \end{prop}
+ \end{tcolorbox}
+ 
+ \subsection{最大・最小・上限・下限}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+    $A$を$\R$の部分集合とする.
+\begin{itemize}
+\item \underline{$m \in A$が$A$の最大}とは, 任意の$a \in A$について$a \leqq m$となること.  このとき\underline{$m=\max(A)$と書く.}
+\item \underline{$m \in A$が$A$の最小}とは, 任意の$a \in A$について$m \leqq a$となること. このとき\underline{$m=\min(A)$と書く. }
+\item $A$が上に有界であるとき, 
+$$
+\sup A = \min \{ x \in \R \,\,| \,\, \text{任意の$a \in A$について$a \leqq x$となる}\}
+$$
+を\underline{$A$の上限}とする. $A$が上に有界でないとき, $\sup A = + \infty$とする.
+\item $A$が下に有界であるとき, 
+$$
+\inf A = \max \{ x \in \R \,\,| \,\, \text{任意の$a \in A$について$x \leqq a$となる}\}
+$$
+を\underline{$A$の下限}とする. $A$が下に有界でないとき, $\inf A = - \infty$とする.
+\end{itemize}
+
+ \end{dfn}
+ \end{tcolorbox}
+ 注意点として, 最大・最小はいつも存在するとは限らないが, 上限・下限はいつも存在する.($\pm \infty$を含めてですが.)
+ 
+   \begin{exa}
+$A = (0,1]$のとき, $\max(A) =\sup(A)=1$, $\inf(A)=0$, $\min(A)$は存在しない.
+\end{exa}
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item $A = \{ 1 - \frac{1}{n} \,\,| \,\, n \in \N\}$とする.
+$A$の最大・最小・上限・下限を求めよ. また$A$が有界であることを示せ.
+\item $a_1=10$, $a_{n+1} = 10 \sqrt{a_n}$として, 数列$\{ a_n \}_{n=1}^{\infty}$を定める. 
+数列$\{ a_n \}_{n=1}^{\infty}$は有界な単調増加数列であることを示せ.
+またこの数列の収束値を求めよ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

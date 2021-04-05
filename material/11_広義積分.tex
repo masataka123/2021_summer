@@ -1,0 +1,183 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第11回. 広義積分 (三宅先生の本, 3.3の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/06/29
+\end{flushright}
+
+
+
+\section{広義積分}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[広義積分]
+ $a$を実数とし, $b$は実数または$b=+\infty$とする. $f(x)$を$[a,b)$上の連続関数とする.
+左極限$\lim_{\beta \rightarrow b-0} \int_{a}^{\beta} f(x)dx$が存在するとき, 
+\underline{広義積分 $\int_{a}^{b} f(x)dx$は収束する}といい
+$$
+\int_{a}^{b} f(x)dx = \lim_{\beta \rightarrow b-0} \int_{a}^{\beta} f(x)dx \text{\,\,とする.}
+$$
+この積分を\underline{広義積分}という.
+極限が存在しないときは, \underline{広義積分$\int_{a}^{b} f(x)dx$は発散する}という.
+ \end{dfn}
+ \end{tcolorbox}
+ 
+
+ \begin{exa}
+  \begin{itemize}
+ \item $\int_{1}^{\infty} x^p dx$は$p<-1$のとき収束し, $p \geqq -1$のとき発散する.
+ \item $\int_{0}^{1} x^p dx$は$p>-1$のとき収束し, $p \leqq -1$のとき発散する.
+\end{itemize}
+ \end{exa}
+
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$f(x)$を$[a,b)$上の連続関数とする.
+$[a,b)$上の連続関数$g(x)$があって, $[a , b)$上で$|f(x)| \leqq g(x)$かつ広義積分$\int_{a}^{b} g(x) dx$が収束すると仮定する.
+このとき広義積分$\int_{a}^{b} f(x) dx$もまた収束する.
+ \end{thm}
+ \end{tcolorbox}
+ 
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$f(x)$を$[a,b)$上の連続関数とする.
+$[a,b)$上の連続関数$g(x)$があって, $[a , b)$上で$0 \leqq g(x) \leqq f(x)$かつ広義積分$\int_{a}^{b} g(x) dx$が発散すると仮定する.
+このとき広義積分$\int_{a}^{b} f(x) dx$もまた発散する.
+ \end{thm}
+ \end{tcolorbox}
+ 
+ \begin{exa}
+広義積分$\int_{0}^{1} \frac{\sin x}{\sqrt{1-x}}dx $は収束する.
+これは$[0, 1)$上で$|\frac{\sin x}{\sqrt{1-x}}| \leqq \frac{1}{\sqrt{1-x}}$かつ
+広義積分$\int_{0}^1 \frac{1}{\sqrt{1-x}} dx$が収束するからである.
+ \end{exa}
+ 
+  \begin{exa}
+広義積分$\int_{2}^{\infty} \frac{1}{\sqrt[3]{x(x-1)}}dx $は発散する.
+これは$[2, \infty)$上で
+$0 \leqq x^{-\frac{2}{3}}\leqq \frac{1}{\sqrt[3]{x(x-1)}}$
+かつ
+広義積分$\int_{2}^{\infty} x^{- \frac{2}{3}} dx$が発散するからである.
+ \end{exa}
+
+  \begin{exa}
+実数$s>0$について, 広義積分$\int_{0}^{\infty} e^{-x}x^{s-1}dx $は収束する.
+
+\hspace{-18pt}(証.)
+$\lim_{x \rightarrow \infty} (e^{-x}x^{s-1}) x^{2} = \lim_{x \rightarrow \infty} e^{-x}x^{s+1} =0$
+より, ある$c>0$があって, $[c +\infty)$上で$e^{-x} x^{s-1} \leqq x^{-2}$である.
+広義積分$\int_{c}^{\infty} x^{-2} dx$は収束するため, 広義積分$\int_{c}^{\infty}e^{-x} x^{s-1}dx$も収束する.
+
+一方$(0 , c]$上で$e^{-x}x^{s-1} \leqq x^{s-1}$であり, $s-1 > -1$から広義積分$\int_{0}^{c} x^{s-1} dx$は収束するため
+広義積分$\int_{0}^{c} e^{-x}x^{s-1} dx$も収束する.
+
+以上より広義積分$\int_{0}^{\infty} e^{-x}x^{s-1}dx  =\int_{0}^{c} e^{-x}x^{s-1}dx +\int_{c}^{\infty} e^{-x}x^{s-1}dx  $は収束する.
+ \end{exa}
+
+
+
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item[] $p$を実数とし$f(x) = x^p \log x$とする.
+\item $p< -1$ならば広義積分$\int_{1}^{\infty} f(x) dx$は収束することを示せ．
+\item $p\geqq -1$ならば広義積分$\int_{1}^{\infty} f(x) dx$は発散することを示せ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

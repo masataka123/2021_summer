@@ -1,0 +1,315 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第8回. リーマン積分の定義と微分積分学の基本定理 \\ (三宅先生の本, 3.1と3.4の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/06/08
+\end{flushright}
+
+
+\section{はじめに}
+ この回の内容はかなり難しいので, 積分の理論を気にせず計算だけしたい人はこの回の内容を読み飛ばして, 次の回の内容に移って良い.
+ %(最後の誤差評価は使えるかもしれませんが...)
+ また証明等を少々省略するので, 詳しくリーマン積分を理解したい人は「杉浦光夫 解析入門 1 (東京大学出版会)」を見てほしい.
+% \begin{itemize}\item 杉浦光夫 解析入門 1 (東京大学出版会)\end{itemize}
+ 
+%動画冒頭に述べたルベーグ積分を理解したい人は次の文献を見てほしい.(めちゃくちゃ難しいですが...) \begin{itemize} \item 伊藤清三 ルベーグ積分入門 (裳華房) \item Terence Tao \textit{An introduction to measure theory} available at \url{https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf} \end{itemize}リーマン積分もルベーグ積分もどちらも計算上は違いはないので, 積分の理論を気にせず, 計算だけしたい場合は気にしなくて良いです.
+
+
+\section{リーマン積分の定義}
+この節では$I = [a,b]$とし, 関数$f(x)$は$I$上で有界であるとする.
+ \begin{itemize}
+ \item \underline{$\Delta$が$I$の分割}とは, 正の自然数$m$と
+ $
+ a = x_{0}<x_1< \dots , x_{m-1}<x_{m}=b %\text{\,\,となる}
+ $
+となる数の組$( a, x_1, \dots , x_{m-1} , b) $のこと.
+ 以下$\Delta = ( a, x_1, \dots , x_{m-1} , b ) $とかく. (この授業だけの記号である.)
+ \item $\Delta$を$I$の分割として, \underline{$\Delta$の長さ}を
+ $
+| \Delta| = \max_{1 \leqq i \leqq m, } \{ |x_i - x_{i-1}| \} 
+ \text{\,\,とする.}
+ $
+ 
+ \item $\Delta$を$I$の分割とする.
+ $1 \leqq i \leqq m$となる自然数$i$について
+ $$
+ M_{i} = \sup \{ f(x) \,\,| \,\,x_{i-1} \leqq x \leqq x_i \}, \text{\,\,\,\,}
+ m_{i} = \inf \{ f(x) \,\,| \,\,x_{i-1} \leqq x \leqq x_i  \} \text{\,\,とし, }
+$$
+ $$
+ S_{\Delta} = \sum_{i=1}^{m} M_{i}(x_i - x_{i-1}), \text{\,\,\,\,}
+  T_{\Delta} =\sum_{i=1}^{m} m_{i}(x_i - x_{i-1})\text{\,\,とおく. }
+ $$
+定義から$T_{\Delta} \leqq S_{\Delta}$となる.
+
+ \end{itemize}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ダルブーの定理]
+    ある実数$S,T$があって, 
+    $$
+    \lim_{|\Delta| \rightarrow 0}S_{\Delta} = S, \text{\,\,} \lim_{|\Delta| \rightarrow 0}T_{\Delta} = T.
+    $$
+    \end{thm}
+    \end{tcolorbox}
+    \footnote{$\lim_{|\Delta| \rightarrow 0}S_{\Delta} = S$の意味は, $\Delta$の長さが0になるように分割をとっていくと, $S_{\Delta}$は$S$に限りなく近くという意味である.}
+    
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[リーマン積分の定義]
+    $I = [a,b]$かつ$f(x)$を$I$上の有界関数とする. \\
+    \underline{$f$が$I$上でリーマン積分可能(リーマン可積分)}とは$S=T$となること.
+    このとき, 
+    $$
+    S = \int_{a}^{b} f(x)dx \text{\,\,と表す.}
+    $$
+    \underline{$\int_{a}^{b} f(x)dx $を$f(x)$の$[a,b]$における定積分}という.
+    
+    また
+    $$
+    \int_{a}^{a} f(x)dx  =0, \text{\,\,\,\,} \int_{b}^{a} f(x)dx = -\int_{a}^{b} f(x)dx 
+    \text{\,\,とする.}$$
+    \end{dfn}
+    \end{tcolorbox}
+    以下, リーマン積分可能を単に積分可能ということにする.
+
+\begin{exa}
+\label{riem_not}
+\begin{itemize}
+\item $I = [a,b]$とし, $f$を$I$上での連続関数とする.
+このとき$f$は$I$上で積分可能.(みんながよく知っている関数は積分可能.)
+\item $I = [0,1]$とし, $I$上の有界関数$f(x)$を
+$$
+  f(x)= \begin{cases}
+     1& \text{$x$は有理数}\\
+    0& \text{$x$は無理数}
+  \end{cases}
+$$
+とおくとき, 任意の$I$の分割$\Delta$について, $S_{\Delta}=1$であり, $T_{\Delta}=0$である.
+よって$S =1$かつ$T=0$より, $f$は$I$上で積分可能ではない.
+%\footnote{ルベーグ積分は可能になる. 積分値は0となる. ルベーグ積分はいい感じにリーマン積分を包含する概念である.}
+ \end{itemize}
+\end{exa}
+
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[区分求積法]
+$I=[a,b]$とし, $f(x)$を$I$上の積分可能な関数とする.
+任意の$n\in N$について, 
+$x_i = a + \frac{(b-a)i}{n}$
+($i$は$1 \leqq i \leqq n$なる自然数)とおき, 
+$
+D_n = \sum_{i=1}^{n} \frac{f(x_i)}{n} %\text{\,\,\ とすると}
+$
+とすると, 
+$$
+ \lim_{n \rightarrow \infty }D_n = \int_{a}^{b} f(x) dx\text{\,\,\ となる.}
+$$
+        \end{thm}
+    \end{tcolorbox}
+ \begin{exa}
+ $I =[0,1]$とし, $f(x) =x^2$を$I$上の関数とする.
+ 任意の$n\in N$について, 
+$x_i = 0+ \frac{(1-0)i}{n} = \frac{i}{n}$($i$は$1 \leqq i \leqq n$なる自然数)であるので, 
+$$
+D_n =  \sum_{i=1}^{n} \frac{f(x_i)}{n} 
+= \sum_{i=1}^{n} \frac{i^2}{n^3} = \frac{n(n+1)(2n+1)}{6n^3}
+$$
+以上より区分求積法から
+$$
+\int_{0}^{1} x^2 dx =
+ \lim_{n \rightarrow \infty }D_n = \frac{1}{3}\text{\,\,\ である.}
+$$
+ \end{exa}
+
+    
+\section{微分積分学の基本定理}
+
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+    $f(x)$を区間$I$上の連続関数とする.
+    $a \in I$を一つ固定する.
+     $$
+\begin{array}{cccc}
+F: &I& \rightarrow & \R  \\
+&x& \longmapsto & \int_{a}^{x} f(x) dx
+\end{array}
+$$
+を\underline{$f(x)$の不定積分}と呼ぶ. 
+\underline{$F(x)$を$\int f(x) dx$とも表す.}
+不定積分は定数を除いてただ一つに定まる.
+        \end{dfn}
+    \end{tcolorbox}
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[微分積分学の基本定理]
+    $f(x)$を区間$I$上の連続関数とする.
+不定積分$F(x) = \int_{a}^{x} f(x) dx$は$I$上で微分可能で
+$F'(x)=f(x)$である．特に
+$$
+\drv{}{x} \int_{a}^{x} f(t)dt = f(x) \text{\,\,\,である.}
+$$
+        \end{thm}
+    \end{tcolorbox}
+    
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+    $f(x)$を区間$I$上の連続関数とし, $G(x)$を$I$上の関数とする.
+    $G'(x) = f(x)$ならばある定数$c$があって, 
+    $$
+    G(x) = \int f(x) dx + c \text{\,\,\,となる.}
+    $$
+        \end{prop}
+    \end{tcolorbox}
+\begin{exa}
+$f(x) = x^2, G(x) = \frac{x^3}{3}$とすると
+$G'(x) = \left( \frac{x^3}{3} \right)' = x^2=f(x)$よりある定数$c$があって
+$ \int x^2 dx   = \frac{x^3}{3} + c$となる.
+
+\end{exa}
+    
+ 
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+    $f(x)$を$[a,b]$上の連続関数とし, $G(x)$を$G'(x) = f(x)$となる$[a,b]$上の関数とする.
+このとき
+$$
+\int_{a}^{b} f(x) dx = \Bigl[ G(x) \Bigr]_{a}^{b} = G(b) - G(a) \text{\,\,\,となる.}
+$$
+        \end{thm}
+    \end{tcolorbox}
+
+\begin{exa}
+$$\int^{1}_{0} x^2 dx = \left[\frac{x^3}{3}\right]^{1}_{0} =\frac{1}{3} $$である.
+(区分求積法を用いるよりもずっとずっと簡単である.)
+\end{exa}
+    
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item[] $n,x \in \N$について
+$$S_{n}(x) = \sum_{k=1}^{n}\frac{1}{k^x}\text{\,\,\,とする.}$$
+次の問いに答えよ.
+\item $\lim_{n \rightarrow \infty} S_{n}(1)$は発散することを示せ.
+\item $\lim_{n \rightarrow \infty} S_{n}(2)$は収束することを示せ.
+\end{enumerate}
+ちなみに
+\begin{align*}
+\begin{split}
+\frac{\pi^2}{6} &= \lim_{n \rightarrow \infty} S_{n}(2) = 1 + \frac{1}{4}+ \frac{1}{9}+ \frac{1}{16}+ \frac{1}{25}+
+\cdots  \\
+\frac{\pi^4}{90} &= \lim_{n \rightarrow \infty} S_{n}(4) = 1 + \frac{1}{2^4}+ \frac{1}{3^4}+ \frac{1}{4^4}+ \frac{1}{5^4}+
+\cdots  \\
+\frac{\pi^6}{945} &= \lim_{n \rightarrow \infty} S_{n}(6) = 1 + \frac{1}{2^6}+ \frac{1}{3^6}+ \frac{1}{4^6}+ \frac{1}{5^6}+
+\cdots  \\
+\end{split}
+\end{align*}
+であることが知られている.
+ 
+
+\end{document}

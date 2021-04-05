@@ -1,0 +1,400 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第3回. 微分法と初等関数の性質 (三宅先生の本, 1.3と2.1の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/27
+\end{flushright}
+
+\section{微分法}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+
+
+\begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}
+ $f(x)$を点$a$を含む開区間上の関数とする.
+ \underline{$f(x)$が$x=a$で微分可能}とは
+    $$ \lim_{x \rightarrow a} \frac{f(x) - f(a)}{x-a} \text{\,\,が存在すること.\,\,} $$
+    この値を$f'(a)$と書く.
+    $f'(a)$は$\drv{f}{x}|_{x=a}$や$\drv{f(a)}{x}$とも書く.
+    
+ \hspace{12pt}\underline{$f(x)$が$I$上で微分可能}とは, 任意の$a \in I$に関して
+ $f(x)$が$x=a$で微分可能であること. このとき
+  $$
+\begin{array}{cccc}
+f': &I& \rightarrow & \R  \\
+&x& \longmapsto & f'(x)
+\end{array}
+$$
+を\underline{$f(x)$の導関数}という. $f'(x)$は$\drv{f}{x}$とも書く.
+    \end{dfn}
+\end{tcolorbox}
+
+   \begin{exa}
+   みんながよく知っている関数は(だいたい)微分可能関数. つまり$x^2,\sin x, \cos x, e^x $などは微分可能な関数である.
+   \end{exa}
+
+  \begin{exa}
+微分可能な関数$f(x)$について, 点$(a, f(a))$での接線の方程式は
+$
+y - f(a) = f'(a) (x-a) 
+$
+である.
+   \end{exa}
+
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+$f(x)$が$x=a$で微分可能ならば$x=a$で連続である.
+\end{thm}
+  \end{tcolorbox}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[微分の性質]
+$f,g$を区間$I$上の微分可能な関数とするとき, 以下が成り立つ. ($c$は定数.)
+ \begin{itemize}
+ \item  $(f \pm g)' = f '\pm g'$
+  \item  $(c f)' = cf'$
+   \item  $(fg)' = f'g + fg'$
+    \item $ \left( \frac{f}{g} \right)' = \frac{f'g - f g'}{g^2}$ 
+    ($g'(x) \neq 0$なる点において.)
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+   
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[合成関数の微分法]
+$y=f(x)$が$x=a$で微分可能であり, $z=g(y)$が$y=f(a)$で微分可能であるとき, 
+$z=g(f(x))$は$x=a$で微分可能であり, 
+$$
+\drv{z}{x}=\drv{z}{y}\drv{y}{x} 
+\text{\,\,である.}
+$$
+より詳しく書くと, 
+$$\drv{z}{x}\Bigr|_{x=a}=\drv{z}{y}\Bigr|_{y=f(a)}\drv{y}{x}\Bigr|_{x=a}
+\text{\,\,である.}
+$$
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \begin{exa}
+ $z=\cos(x^2)$を普通に微分すると, $\drv{z}{x}=-2x \sin (x^2)$.
+ 一方$y=x^2, z=\cos y$とすると$\drv{y}{x}=2x, \drv{z}{y}=-\sin (y)$より, 
+ $$
+ \drv{z}{y}\drv{y}{x}  = (-\sin (x^2) )2x=-2x\sin (x^2) \text{\,\,である.}
+ $$
+ \end{exa}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[合成関数の微分法]
+関数$f(x)$は区間$I$で微分可能かつ単調増加であるとする.
+任意の$x \in I$で$f'(x) \neq 0$であると仮定する.
+このとき逆関数$f^{-1}(y)$は$f^{-1}(I)$上で微分可能であり
+$$
+\drv{x}{y}=\left(\drv{y}{x}\right)^{-1}=\frac{1}{\left(\drv{y}{x}\right)}
+\text{\,\,である.}
+$$
+同じことだが, 
+$$
+\drv{f^{-1}}{y}=\left(\drv{f}{x}\right)^{-1}=\frac{1}{\left(\drv{f}{x}\right)}
+\text{\,\,である.}
+$$
+ \end{thm}
+   \end{tcolorbox}
+   
+   
+ \section{初等関数の性質}
+ \subsection{三角関数}
+   
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[三角関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $(\sin x)' = \cos x$ 
+ \item  $(\cos x)' = -\sin x$
+  \item  $(\tan x)' = \frac{1}{(\cos x)^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+\subsection{逆三角関数}
+$\sin x$は$[- \frac{\pi}{2}, \frac{\pi}{2}]$上で単調増加, 
+$\cos x$は$[0, \pi]$上で単調増加, 
+$\tan x$は$[- \frac{\pi}{2}, \frac{\pi}{2}]$上で単調増加
+であるのでそれぞれ微分可能な逆関数が存在する.
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[逆三角関数]
+    \text{}
+ \begin{itemize}
+ \item    $$
+\begin{array}{cccc}
+\Sin: &[-1,1]& \rightarrow & \R  \\
+&y& \longmapsto & \Sin y
+\end{array}
+$$
+ を$\sin$の逆関数とする. これを\underline{アークサイン}と呼ぶ.
+ $\Sin([-1,1])=[- \frac{\pi}{2}, \frac{\pi}{2}]$である.
+ \item    $$
+\begin{array}{cccc}
+\Cos: &[-1,1]& \rightarrow & \R  \\
+&y& \longmapsto & \Cos y
+\end{array}
+$$
+ を$\cos$の逆関数とする. これを\underline{アークコサイン}と呼ぶ.
+ $\Cos([-1,1])=[0, \pi]$である.
+  \item    $$
+\begin{array}{cccc}
+\Tan: &\R& \rightarrow & \R  \\
+&y& \longmapsto & \Tan y
+\end{array}
+$$
+ を$\tan$の逆関数とする. これを\underline{アークタンジェント}と呼ぶ.
+ $\Tan(\R)=(- \frac{\pi}{2}, \frac{\pi}{2})$である.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+\begin{exa}
+$\Sin(\frac{1}{2})=\frac{\pi}{6}, \Cos(\frac{1}{2})=\frac{\pi}{3},\Tan(1)=\frac{\pi}{4}$である.
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[逆三角関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $(\Sin y)' =  \frac{1}{\sqrt{1-y^2}}$ 
+ \item  $(\Cos y)' = - \frac{1}{\sqrt{1-y^2}}$
+  \item  $(\Tan y)' = \frac{1}{1 + y^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+   
+ \subsection{指数関数}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[ネピアの定数]
+$
+\lim_{n \rightarrow \infty} \left(1 + \frac{1}{n}\right)^n
+$
+は収束する. この値を$e$と書きネピアの定数という.
+\end{thm}
+  \end{tcolorbox} 
+  
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[指数関数・対数関数]
+    \text{}
+ \begin{itemize}
+\item $a>0$かつ$a \neq 1$なる実数$a$について, 関数
+$$
+\begin{array}{cccc}
+a^x: &\R& \rightarrow & (0, + \infty)  \\
+&x& \longmapsto & a^x
+\end{array}
+$$
+を\underline{指数関数}と呼ぶ.
+$a=e$のとき, $e^x$を$\exp x$ともかく.
+\item $a>0$かつ$a \neq 1$なる実数$a$について, 指数関数$a^x$の逆関数
+$$
+\begin{array}{cccc}
+\log_{a} y: &(0, + \infty) & \rightarrow & \R \\
+&y& \longmapsto & \log_{a} y
+\end{array}
+$$
+を\underline{対数関数}と呼ぶ.
+$a=e$のとき, $\log y$と書く.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[指数関数・対数関数の微分]
+    \text{}
+ \begin{itemize}
+ \item  $\lim_{x \rightarrow 0} \frac{\log (1+x)}{x} =1$, $\lim_{x \rightarrow 0} \frac{e^x -1}{x} =1$.
+ \item  $(a^x)' = (\log a) a^x$. 特に$(e^x)' = e^x$.
+  \item  $(\log_{a} y)' = \frac{1}{(\log a) y}$. 特に$(\log y)' = \frac{1}{y}$.
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+ \subsection{双曲線関数}
+ 
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[双曲線関数]
+    \text{}
+ \begin{itemize}
+ \item    $$
+\sinh x = \frac{e^x - e^{-x}}{2}
+$$
+ とし, これを\underline{ハイパボリックサイン}と呼ぶ.
+ \item    $$
+\cosh x = \frac{e^x + e^{-x}}{2}
+$$
+ とし, これを\underline{ハイパボリックコサイン}と呼ぶ.
+ \item    $$
+\tanh x = \frac{\sinh x}{\cosh x}= \frac{e^x - e^{-x}}{e^x + e^{-x}}
+$$
+ とし, これを\underline{ハイパボリックタンジェント}と呼ぶ.
+ \end{itemize}
+ \end{dfn}
+   \end{tcolorbox}
+   
+       \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[双曲線関数の微分]
+    \text{}
+ \begin{itemize}
+\item $(\cosh x)^2 - (\sinh x)^2 = 1$ 
+ \item  $(\sinh x)' = \cosh x$
+ \item  $(\cosh x)' = \sinh x$
+  \item  $(\tanh x)' = \frac{1}{(\cosh x)^2}$
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+
+
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item $\Sin(- \frac{\sqrt{3}}{2}), \Cos(- \frac{\sqrt{3}}{2}), \Tan(- \frac{\sqrt{3}}{3})$の値を求めよ.
+\item $f(x) = \log(\log (x))$とする. $f'(x)$を求めよ.
+\end{enumerate}
+
+
+
+ 
+
+\end{document}

@@ -1,0 +1,435 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large 第2回. 連続関数 (三宅先生の本, 1.2の内容)}
+\end{center}
+
+\begin{flushright}
+ 岩井雅崇 2021/04/20
+\end{flushright}
+
+\section{関数の定義と性質}
+%以下この授業を通してよく使う記号や用語をまとめる.(興味がなければ飛ばして良い)
+
+%\subsection{関数}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[]
+ $A$を$\R$の部分集合とする.
+ 任意の$x \in A$について, 実数$f(x)$がただ一つ定まるとき, 
+ \underline{$f(x)$を$A$上の関数}といい
+    $$
+\begin{array}{cccc}
+f: &A& \rightarrow & \R  \\
+&x& \longmapsto & f(x)
+\end{array}
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+ 以下$f(A) = \{ f(x) \,\,|\,\, x \in A\}$とする.
+ 数列のときと同様に, 関数に関しても有界などが定義できる.
+  
+\begin{itemize}
+\item \underline{$f$が有界関数である}とは, $f(A)$が有開集合であること.
+つまりある$M>0$があって, 任意の$x \in A$について$|f(x)| \leqq M$であること.
+\item $\max_{x \in A}(f(x)) = \max(f(A))$を\underline{$f(x)$の$A$での最大値}という.
+\item $\min_{x \in A}(f(x)) = \min(f(A))$を\underline{$f(x)$の$A$での最小値}という.
+\item $\sup_{x \in A}(f(x)) = \sup(f(A))$を\underline{$f(x)$の$A$での上限}という.
+\item $\inf_{x \in A}(f(x)) = \inf(f(A))$を\underline{$f(x)$の$A$での下限}という.
+\end{itemize}
+
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &\R& \rightarrow & \R  \\
+&x& \longmapsto & \pm x^2
+\end{array}
+$$
+は$\R$上の関数ではない. 
+$f(2)$がただ一つに定まらないからである.
+  \end{exa}  
+  
+\begin{exa}
+     $$
+\begin{array}{cccc}
+f: &\R& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$\R$上の関数. 
+$\max_{x \in \R}(f(x))$は存在しない. 
+$\sup_{x \in \R}(f(x)) = + \infty$, 
+$\min_{x \in \R}(f(x)) =\inf_{x \in \R}(f(x))=0$
+である. 有界関数ではない.
+\end{exa}
+
+\begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$[-1,1]$上の関数. 
+$\max_{x \in [-1,1]}(f(x))=\sup_{x \in [-1,1]}(f(x)) = 1$, 
+$\min_{x \in [-1,1]}(f(x)) =\inf_{x \in [-1,1]}(f(x))=0$
+である. 有界関数である.
+\end{exa}
+
+\section{関数の極限と連続性}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[関数の極限]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする.
+$x \rightarrow a$のとき, \underline{$f(x)$が$\alpha \in \R$に収束する}とは
+$x \neq \alpha$を満たしながら$x$を$a$に近づけるとき, $f(x)$が限りなく$\alpha$に近づくこと.
+このとき
+$$
+\lim_{x \rightarrow a} f(x) = \alpha \text{\,\,または\,\,}
+f(x) \xrightarrow[x \rightarrow a]{} \alpha 
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+ 数列のときと同様にして,
+ $\lim_{x \rightarrow a} f(x) = +\infty$や
+  $\lim_{x \rightarrow a} f(x) = -\infty$も定める.
+  \footnote{関数の極限に関しても$\epsilon$-$\delta$論法を用いて厳密に定義できる. 追加資料で詳しく説明した.}
+  
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[関数の極限]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする. \\
+\underline{$\alpha \in \R$が$f(x)$の点$a$のおける右極限}とは, 
+%$x \neq \alpha$を満たしながら
+$x$を$a$の右側から$a$に近づけるとき, $f(x)$が限りなく$\alpha$に近づくこと.
+このとき
+$$
+\lim_{x \rightarrow a + 0} f(x) = \alpha 
+\text{\,\,と書く.}
+$$
+同様に$a$の左側から近づけた極限を\underline{左極限}といい, 
+$$
+\lim_{x \rightarrow a - 0} f(x) = \alpha 
+\text{\,\,と書く.}
+$$
+\end{dfn}
+  \end{tcolorbox}
+  
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+について, $\lim_{x \rightarrow 0} f(x) =0.$
+\end{exa}
+
+  \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &(- \infty, 0) \cup (0 , +\infty)& \rightarrow & \R  \\
+&x& \longmapsto & \frac{1}{x}
+\end{array}
+$$
+について, $\lim_{x \rightarrow 0+0} f(x) =+\infty$であり
+$\lim_{x \rightarrow 0-0} f(x) =-\infty$である.
+\footnote{$\lim_{x \rightarrow 0-0} f(x) $を$\lim_{x \rightarrow -0} f(x)$とも書きます. +のときも同じです.}
+\end{exa}
+
+ \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[極限の性質]
+  $\lim_{x \rightarrow a} f(x) = \alpha$, 
+    $\lim_{x \rightarrow a} g(x)= \beta$, $c \in \R$とするとき,  以下が成り立つ.
+ \begin{itemize}
+ \item $\lim_{x \rightarrow a}  (f(x) \pm g(x)) = \alpha \pm \beta$
+  \item $\lim_{x \rightarrow a} (c f(x)) = c\alpha $
+   \item $\lim_{x \rightarrow a}  (f(x)g(x)) = \alpha  \beta$
+    \item $\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \frac{\alpha}{\beta}$ 
+    ($\beta \neq 0$のとき.)
+ \end{itemize}
+ \end{prop}
+   \end{tcolorbox}
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[連続の定義]
+$a\in \R$とし$f(x)$を$a$の周りで定義された関数とする. \\
+\underline{$f(x)$が$x=a$で連続}とは, 
+$$
+\lim_{x \rightarrow a } f(x) = f(a) 
+\text{\,\,となること.}
+$$
+$f(x)$を区間$I$上の関数とする. \underline{$f(x)$が$I$上で連続}とは, 
+任意の$a \in I$に関して$f(x)$が$a$で連続となること.
+\end{dfn}
+  \end{tcolorbox}
+
+   \begin{exa}
+   みんながよく知っている関数は(だいたい)連続関数. つまり$x^2,\sin x, \cos x, e^x $などは連続関数である.
+   \end{exa}
+   \begin{exa}
+   $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+     \sin \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+  このとき, $f(x)$は$x=0$で連続ではない.
+   \end{exa}
+
+ 
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}
+  $f(x), g(x)$共に$x=a$で連続ならば, $f(x) \pm g(x)$, $c f(x)$,  $f(x)g(x)$, $\frac{f(x)}{g(x)} $(ただし$g(a) \neq 0$)などは$x=a$で連続.
+ \end{prop}
+   \end{tcolorbox}
+
+  \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}
+  $y=f(x)$が$x=a$で連続であり, $z=g(y)$が$y=f(a)$で連続ならば, 
+  $z=g(f(x))$は$x=a$で連続.
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \section{連続関数に関する定理}
+ 
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[最大最小の存在定理]
+$f(x)$が閉区間$[a,b]$上で連続ならば, $f(x)$は$[a,b]$上で最大値, 最小値を持つ.
+ \end{thm}
+   \end{tcolorbox}
+ 
+ \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &[-1,1]& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$[-1,1]$上の連続関数. 
+最大値は$1$, 最小値は$0$.
+\end{exa}
+ \begin{exa}
+     $$
+\begin{array}{cccc}
+f: &(-1,1)& \rightarrow & \R  \\
+&x& \longmapsto & x^2
+\end{array}
+$$
+は$(-1,1)$上の連続関数. 
+しかし, 最大値は存在しない.
+\end{exa}
+
+   \begin{exa}
+   $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+    \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+  このとき, $f(x)$は$x=0$で連続ではない.
+  最大値は存在しない.
+   \end{exa}
+ 
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[中間値の定理]
+$f(x)$を閉区間$[a,b]$上の連続関数とする.
+$f(a) < f(b)$ならば,　任意の$\alpha \in [f(a), f(b)]$について, ある$c \in [a,b]$があって$f(c) = \alpha$となる.
+ \end{thm}
+   \end{tcolorbox}
+   
+ \section{逆関数}
+ 
+ 
+   \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[単調増加・単調減少]
+$f(x)$を区間$I$上の関数とする.
+$x<y$ならば$f(x)<f(y)$であるとき, \underline{$f$は$I$上で単調増加}という.
+(\underline{単調減少}に関しても同様に定める.)
+\end{dfn}
+
+  \end{tcolorbox}
+  
+      \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{prop}[単調増加の判定法]
+$f(x)$を$[a,b]$上で連続, $(a,b)$上で微分可能な関数とする.
+$(a,b)$上$f'(x)>0$ならば$f(x)$は$[a,b]$上で単調増加である.
+(単調減少に関しても同様.)
+ \end{prop}
+   \end{tcolorbox}
+   \footnote{微分可能に関しては第3回授業で, この命題の証明は第4回の授業で行います.}
+   
+   
+    \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{dfn}[逆関数]
+$f(x)$を区間$I$上の関数とし, $g(x)$を区間$J$上の関数とする.
+$f(I) = J, g(J)=I$であり, $y=f(x)$であることが$x=g(y)$であることと同値であるとき, \\\underline{$g$を$f$の逆関数といい, $g=f^{-1}$と書く.}
+このとき
+$$
+f^{-1}(f(x))=x \text{\,\,かつ, \,\,} f(f^{-1}(y)) = y \text{\,\,である. \,\,}
+$$
+\end{dfn}
+  \end{tcolorbox}
+  
+  \begin{exa}
+
+   $$
+\begin{array}{ccccccccc}
+f: &[0, + \infty) & \rightarrow & \R & &g: &[0, + \infty)  & \rightarrow & \R \\
+&x & \longmapsto & x^2& & &y& \longmapsto & \sqrt{y}
+\end{array}
+$$
+とすると$f^{-1}=g$である.
+\end{exa}
+
+     \begin{tcolorbox}[
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true]
+    \begin{thm}[逆関数定理]
+$f(x)$を閉区間$[a,b]$上の連続な単調増加関数とする. このとき$[f(a),f(b)]$上連続な$f$の逆関数が存在する.
+ \end{thm}
+   \end{tcolorbox}
+   
+ 
+\section{演習問題}
+演習問題の解答は授業の黒板にあります.
+\begin{enumerate}
+\item    $[-1,1]$上の関数$f(x)$を以下で定める.
+   $$
+  f(x)= \begin{cases}
+    x \sin \frac{1}{x}& (x \neq 0) \\
+    0& (x= 0)
+  \end{cases}
+  $$
+$f(x)$は$[-1,1]$上で連続であることを示せ.
+\item 厚さが均一なお好み焼きは, 包丁を真っ直ぐに一回入れることで二等分にできることを示せ. (ただし具材等に関して細かいことは考えないでよく, ある種の連続性を仮定して良い.)
+\end{enumerate}
+
+
+
+ 
+
+\end{document}
