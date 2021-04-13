@@ -2,6 +2,7 @@
 
 # News
 
+- 2021/04/13 第1回授業(対面授業)は無事終了いたしました. 第1回授業の黒板の画像をアップロードしました.
 - 2021/04/08 成績の付け方に関して更新しました.
 - 2021/04/05 授業資料・授業ノートをアップロードしました.
 - 2021/03/18 授業ページを作りました.
@@ -47,7 +48,7 @@
 
 
 - 第1回 (2021/04/13). 実数の定義と性質
- [第1回資料](https://github.com/masataka123/2021_summer/blob/master/material/1_実数の定義と性質.pdf) [第1回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業ノート.pdf) [第1回追加資料](https://github.com/masataka123/2021_summer/blob/master/material/1_追加資料_極限.pdf)
+[第1回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業黒板.pdf) [第1回資料](https://github.com/masataka123/2021_summer/blob/master/material/1_実数の定義と性質.pdf) [第1回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業ノート.pdf) [第1回追加資料](https://github.com/masataka123/2021_summer/blob/master/material/1_追加資料_極限.pdf)
 
 - 第2回 (2021/04/20). 連続関数
  [第2回資料](https://github.com/masataka123/2021_summer/blob/master/material/2_連続関数.pdf) [第2回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/2_第二回授業ノート.pdf)
