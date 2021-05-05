@@ -66,47 +66,51 @@
 
 
 - 第1回 (2021/04/13). 実数の定義と性質
-[第1回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業黒板.pdf) [第1回資料](https://github.com/masataka123/2021_summer/blob/master/material/1_実数の定義と性質.pdf) [第1回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業ノート.pdf) [第1回追加資料](https://github.com/masataka123/2021_summer/blob/master/material/1_追加資料_極限.pdf)
+[第1回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/1_第一回授業黒板.pdf) [第1回資料](https://github.com/masataka123/2021_summer/blob/master/material/1_実数の定義と性質.pdf) [第1回追加資料](https://github.com/masataka123/2021_summer/blob/master/material/1_追加資料_極限.pdf)
 
 - 第2回 (2021/04/20). (遠隔授業) 連続関数
 [第2回授業動画](https://www.youtube.com/watch?v=0ZqAkpXJa5U) [第2回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/2_第二回授業黒板.pdf)
- [第2回資料](https://github.com/masataka123/2021_summer/blob/master/material/2_連続関数.pdf) [第2回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/2_第二回授業ノート.pdf)
+ [第2回資料](https://github.com/masataka123/2021_summer/blob/master/material/2_連続関数.pdf) 
 
 - 第3回 (2021/04/27). (遠隔授業) 微分法と初等関数の性質
 [第3回授業動画](https://www.youtube.com/watch?v=tzI4Gmhk9VE) [第3回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/3_第三回授業黒板.pdf)
- [第3回資料](https://github.com/masataka123/2021_summer/blob/master/material/3_微分法と初等関数の性質.pdf) [第3回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/3_第三回授業ノート.pdf)
+ [第3回資料](https://github.com/masataka123/2021_summer/blob/master/material/3_微分法と初等関数の性質.pdf) 
 
 - 第4回 (2021/05/11). (遠隔授業) 平均値の定理と関数の極限値計算
- [第4回資料](https://github.com/masataka123/2021_summer/blob/master/material/4_平均値の定理と関数の極限値計算.pdf) [第4回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/4_第四回授業ノート.pdf)
+[第4回授業動画](https://www.youtube.com/watch?v=EZnow-gnr4k) [第4回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/4_第四回授業黒板.pdf)
+ [第4回資料](https://github.com/masataka123/2021_summer/blob/master/material/4_平均値の定理と関数の極限値計算.pdf) 
 
 - 第5回 (2021/05/18). (遠隔授業) 高次導関数とテイラーの定理
- [第5回資料](https://github.com/masataka123/2021_summer/blob/master/material/5_高次導関数とテイラーの定理.pdf) [第5回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/5_第五回授業ノート.pdf)
+[第5回授業動画](https://www.youtube.com/watch?v=pAncxl358fg) [第5回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/5_第五回授業黒板.pdf)
+ [第5回資料](https://github.com/masataka123/2021_summer/blob/master/material/5_高次導関数とテイラーの定理.pdf) 
 
 - 第6回 (2021/05/25). (遠隔授業) 漸近展開とべき級数展開
- [第6回資料](https://github.com/masataka123/2021_summer/blob/master/material/6_漸近展開と冪級数展開.pdf) [第6回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/6_第六回授業ノート.pdf)
+[第5回授業動画](https://www.youtube.com/watch?v=wHKeMDYmIgM) [第6回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/6_第六回授業黒板.pdf)
+ [第6回資料](https://github.com/masataka123/2021_summer/blob/master/material/6_漸近展開と冪級数展開.pdf) 
 
 
 - 第7回 (2021/06/01). (遠隔授業) まとめと復習・質疑応答(中間レポートの質問も含む)
 
-[第1回から第6回授業の資料](https://github.com/masataka123/2021_summer/blob/master/material/0_第一回から第六回の資料.pdf)
-[第1回から第6回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/0_第一回から第六回授業ノート.pdf)
+[第2回から第6回授業の動画](https://www.youtube.com/playlist?list=PLZDOK-K3OuvC0torHeC_jqZCwp1q1T0Qg)
+[第1回から第6回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/0_第一回から第六回の授業黒板.pdf)
+[第1回から第6回授業資料](https://github.com/masataka123/2021_summer/blob/master/material/0_第一回から第六回の資料.pdf)
 
 
 - 第8回 (2021/06/08). (遠隔授業) リーマン積分の定義と微分積分学の基本定理
- [第8回資料](https://github.com/masataka123/2021_summer/blob/master/material/8_リーマン積分の定義と微分積分学の基本定理.pdf) [第8回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/8_第八回授業ノート.pdf)
+ [第8回資料](https://github.com/masataka123/2021_summer/blob/master/material/8_リーマン積分の定義と微分積分学の基本定理.pdf) 
  
 
 - 第9回 (2021/06/15). (遠隔授業) 積分の性質 
- [第9回資料](https://github.com/masataka123/2021_summer/blob/master/material/9_積分の性質.pdf) [第9回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/9_第九回授業ノート.pdf)
+ [第9回資料](https://github.com/masataka123/2021_summer/blob/master/material/9_積分の性質.pdf) 
 
 - 第10回 (2021/06/22). (遠隔授業) 不定積分の計算方法
- [第10回資料](https://github.com/masataka123/2021_summer/blob/master/material/10_不定積分の計算方法.pdf) [第10回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/10_第十回授業ノート.pdf)
+ [第10回資料](https://github.com/masataka123/2021_summer/blob/master/material/10_不定積分の計算方法.pdf) 
  
 - 第11回 (2021/06/29). (遠隔授業) 広義積分
- [第11回資料](https://github.com/masataka123/2021_summer/blob/master/material/11_広義積分.pdf) [第11回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/11_第十一回授業ノート.pdf)
+ [第11回資料](https://github.com/masataka123/2021_summer/blob/master/material/11_広義積分.pdf) 
 
 - 第12回 (2021/07/06). (遠隔授業) 曲線の長さ
- [第12回資料](https://github.com/masataka123/2021_summer/blob/master/material/12_曲線の長さ.pdf) [第12回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/12_第十二回授業ノート.pdf)
+ [第12回資料](https://github.com/masataka123/2021_summer/blob/master/material/12_曲線の長さ.pdf) 
 
 - 第13回 (2021/07/13). (遠隔授業) まとめと復習 
 
@@ -114,7 +118,6 @@
 
 
 [第8回から第12回授業の資料](https://github.com/masataka123/2021_summer/blob/master/material/0_第八回から第十二回の資料.pdf)
-[第8回から第12回授業ノート](https://github.com/masataka123/2021_summer/blob/master/material/0_第八回から第十二回授業ノート.pdf)
 
 
 # 資料に関して
