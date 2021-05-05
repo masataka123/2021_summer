@@ -86,7 +86,7 @@
  [第5回資料](https://github.com/masataka123/2021_summer/blob/master/material/5_高次導関数とテイラーの定理.pdf) 
 
 - 第6回 (2021/05/25). (遠隔授業) 漸近展開とべき級数展開
-[第5回授業動画](https://www.youtube.com/watch?v=wHKeMDYmIgM) [第6回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/6_第六回授業黒板.pdf)
+[第6回授業動画](https://www.youtube.com/watch?v=wHKeMDYmIgM) [第6回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/6_第六回授業黒板.pdf)
  [第6回資料](https://github.com/masataka123/2021_summer/blob/master/material/6_漸近展開と冪級数展開.pdf) 
 
 
