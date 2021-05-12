@@ -1,6 +1,7 @@
 # 大阪市立大学 R3年度(2021年度)前期 全学共通科目 解析 I *TⅠ電(都1～28)の授業のホームページ
 
 # News
+- 2021/05/12 第8回から第12回の授業動画と授業黒板の画像をアップロードしました.
 - 2021/05/07 中間レポートを掲載しました. 成績に関わるレポートです. 締め切りは2021年6月8日です. 
 - 2021/05/05 第6回授業までの授業動画をアップロードしました. また授業ノートを削除しました. これからは授業黒板の画像を参照してください.
 - 2021/04/28 今後この授業は全て遠隔になります. 詳しくは"今後の授業に関して"の欄でお知らせします. 
@@ -106,26 +107,27 @@
 
 
 - 第8回 (2021/06/08). (遠隔授業) リーマン積分の定義と微分積分学の基本定理
- [第8回資料](https://github.com/masataka123/2021_summer/blob/master/material/8_リーマン積分の定義と微分積分学の基本定理.pdf) 
+[第8回授業動画](https://www.youtube.com/watch?v=6lyW0YqIFgo) [第8回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/8_第八回授業黒板.pdf) [第8回資料](https://github.com/masataka123/2021_summer/blob/master/material/8_リーマン積分の定義と微分積分学の基本定理.pdf) 
  
 
 - 第9回 (2021/06/15). (遠隔授業) 積分の性質 
- [第9回資料](https://github.com/masataka123/2021_summer/blob/master/material/9_積分の性質.pdf) 
+ [第9回授業動画](https://www.youtube.com/watch?v=8PZ9Fdob2HE) [第9回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/9_第九回授業黒板.pdf) [第9回資料](https://github.com/masataka123/2021_summer/blob/master/material/9_積分の性質.pdf) 
 
 - 第10回 (2021/06/22). (遠隔授業) 不定積分の計算方法
- [第10回資料](https://github.com/masataka123/2021_summer/blob/master/material/10_不定積分の計算方法.pdf) 
+  [第10回授業動画](https://www.youtube.com/watch?v=7bAf_vaQnxE) [第10回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/10_第十回授業黒板.pdf) [第10回資料](https://github.com/masataka123/2021_summer/blob/master/material/10_不定積分の計算方法.pdf) 
  
 - 第11回 (2021/06/29). (遠隔授業) 広義積分
- [第11回資料](https://github.com/masataka123/2021_summer/blob/master/material/11_広義積分.pdf) 
+ [第11回授業動画](https://www.youtube.com/watch?v=_sYQL5LW7B8) [第11回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/11_第十一回授業黒板.pdf) [第11回資料](https://github.com/masataka123/2021_summer/blob/master/material/11_広義積分.pdf) 
 
 - 第12回 (2021/07/06). (遠隔授業) 曲線の長さ
- [第12回資料](https://github.com/masataka123/2021_summer/blob/master/material/12_曲線の長さ.pdf) 
+  [第12回授業動画](https://www.youtube.com/watch?v=xug57E_KMXY) [第12回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/12_第十二回授業黒板.pdf) [第12回資料](https://github.com/masataka123/2021_summer/blob/master/material/12_曲線の長さ.pdf) 
 
 - 第13回 (2021/07/13). (遠隔授業) まとめと復習 
 
 - 第14回 (2021/07/20). (遠隔授業) まとめと復習 
 
-
+[第8回から第12回授業の動画](https://www.youtube.com/playlist?list=PLZDOK-K3OuvDpXKHjdAxJUy5ts6HPCeoB)
+[第8回から第12回授業黒板](https://github.com/masataka123/2021_summer/blob/master/material/0_第八回から第十二回の授業黒板.pdf)
 [第8回から第12回授業の資料](https://github.com/masataka123/2021_summer/blob/master/material/0_第八回から第十二回の資料.pdf)
 
 
