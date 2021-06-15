@@ -50,7 +50,7 @@
 # 中間レポートについて
 - 中間レポートの採点は終了しました. 正答率82%でした, 大変よくできていました.
 - 中間レポートの解答はこちらです. [中間レポートの解答例](https://github.com/masataka123/2021_summer/blob/master/material/0_中間レポート解答例.pdf) 
-[中間レポートおまけ問題3の解答例](https://github.com/masataka123/2021_summer/blob/master/material/0_中間レポート解答例おまけ3.ipynb) 
+[中間レポートおまけ問題3の解答例](https://github.com/masataka123/2021_summer/blob/master/material/0_中間レポートおまけ3.ipynb) 
 - 中間レポートの問題のリンクはこちらです. [中間レポートの問題](https://github.com/masataka123/2021_summer/blob/master/material/0_中間レポート_2021s.pdf) 
 
 <!-- 
