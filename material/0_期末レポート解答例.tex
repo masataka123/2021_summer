@@ -1,0 +1,458 @@
+\documentclass[dvipdfmx,a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[dvipdfmx]{hyperref} %リンクを有効にする
+\usepackage{url} %同上
+\usepackage{amsmath,amssymb} %もちろん
+\usepackage{amsfonts,amsthm,mathtools} %もちろん
+\usepackage{braket,physics} %あると便利なやつ
+\usepackage{bm} %ラプラシアンで使った
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry} %余白設定
+\usepackage{latexsym} %ごくたまに必要になる
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usepackage{otf} %宗教上の理由でmin10が嫌いなので
+
+
+\usepackage[all]{xy}
+\usepackage{amsthm,amsmath,amssymb,comment}
+\usepackage{amsmath}    % \UTF{00E6}\UTF{0095}°\UTF{00E5}\UTF{00AD}\UTF{00A6}\UTF{00E7}\UTF{0094}¨
+\usepackage{amssymb}  
+\usepackage{color}
+\usepackage{amscd}
+\usepackage{amsthm}  
+\usepackage{wrapfig}
+\usepackage{comment}	
+\usepackage{graphicx}
+\usepackage{setspace}
+\setstretch{1.2}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\Sin}{\text{Sin}^{-1}} 
+\newcommand{\Cos}{\text{Cos}^{-1}} 
+\newcommand{\Tan}{\text{Tan}^{-1}} 
+\newcommand{\invsin}{\text{Sin}^{-1}} 
+\newcommand{\invcos}{\text{Cos}^{-1}} 
+\newcommand{\invtan}{\text{Tan}^{-1}} 
+\newcommand{\Area}{\text{Area}}
+\newcommand{\vol}{\text{Vol}}
+
+
+
+
+   %当然のようにやる．
+\allowdisplaybreaks[4]
+   %もちろん．
+%\title{第1回. 多変数の連続写像 (岩井雅崇, 2020/10/06)}
+%\author{岩井雅崇}
+%\date{2020/10/06}
+%ここまで今回の記事関係ない
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{claim}[thm]{主張}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{rem}[thm]{注意}
+\newtheorem{exa}[thm]{例}
+\newtheorem{conj}[thm]{予想}
+\newtheorem{prob}[thm]{問題}
+\newtheorem{rema}[thm]{補足}
+
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Vol}{Vol}
+ \newcommand{\pdrv}[2]{\frac{\partial #1}{\partial #2}}
+ \newcommand{\drv}[2]{\frac{d #1}{d#2}}
+  \newcommand{\ppdrv}[3]{\frac{\partial #1}{\partial #2 \partial #3}}
+
+
+
+%ここから本文．
+\begin{document}
+%\maketitle
+\begin{center}
+{ \large 大阪市立大学 R3年度(2021年度)前期 全学共通科目 解析 I *TI電(都1\UTF{FF5E}28)} \\
+\vspace{5pt}
+
+{\LARGE 期末レポート解答例} \\
+\vspace{5pt}
+
+%{ \Large 提出締め切り 2021年6月8日 23時59分00秒 (日本標準時刻)}
+\end{center}
+
+\begin{flushright}
+ 担当教官: 岩井雅崇(いわいまさたか) 
+\end{flushright}
+
+
+{\Large 第1問.} (授業第9,10回の内容.)
+\vspace{11pt}
+
+次の(1)から(4)までの不定積分を求めよ.
+
+
+\vspace{11pt}
+
+(1). $\int x e^{x^2} dx$\,\,\,
+(2). $\int \frac{x^3 -1}{x^2 +1} dx$ \,\,\,
+(3). $\int \frac{2}{x(x-1)(x-2)} dx$ \,\,\,
+(4). $\int  \frac{1}{x \sqrt{x+1}} dx$
+%\begin{enumerate}\item[問1.] $\sqrt{x}$\item[問2.] $\Tan x$\item[問3.] $\cosh x$\item[問4.] $\frac{x}{1-e^{-x}}$\end{enumerate}
+
+\vspace{11pt}
+
+\underline{ただし答えを導出する過程を記した上で, 答えは次のように書くこと.}
+
+\vspace{11pt}
+
+(例題) $ \int \sin x dx$ 
+
+(答え) $\int \sin x dx = - \cos x$
+
+ \vspace{11pt}
+ 
+\hspace{-11pt}{\Large $\bullet$ 第1問解答例.}
+
+以下, 積分定数は省略する.
+
+(1). $\left(\frac{e^{x^2}}{2}\right)' = x e^{x^2}$であるので, 
+$$\int x e^{x^2} dx = \frac{e^{x^2}}{2} \text{ \,\,である.}$$
+
+(2). 
+$$ 
+\frac{x^3 -1 }{x^2 + 1} = \frac{x^3 + x - x -1 }{x^2 + 1}  = x - \frac{x}{x^2 +1} - \frac{1}{x^2 +1}  \text{\,\, であるので, }
+$$
+$$\int \frac{x^3 -1}{x^2 +1} dx = \frac{x^2}{2} - \frac{1}{2} \log |x^2 +1| -  \invtan x
+\text{ \,\,である.}$$
+
+(3). 
+$$
+\frac{2}{x(x-1)(x-2)} = \frac{1}{x} - \frac{2}{x-1} + \frac{1}{x-2} \text{\,\, であるので, }
+$$
+$$\int \frac{2}{x(x-1)(x-2)} dx = \log \left| \frac{x(x-2)}{(x-1)^2}\right|
+\text{ \,\,である.}$$
+
+%[補足.]$\frac{2}{x(x-1)(x-2)} = \frac{1}{x} - \frac{2}{x-1} + \frac{1}{x-2} $を導くにはいろいろやり方があります. (方法1.) $\frac{2}{x(x-1)(x-2)} = \frac{a}{x} - \frac{b}{x-1} + \frac{c}{x-2} $とおき, 通分することで$a,b,c$の値を出す. ()
+
+(4). $t = \sqrt{x+1}$とおくと, $t^2 = x+1$より, $2t dt =dx$であるので,
+  \begin{align*}
+\begin{split}
+\int  \frac{1}{x \sqrt{x+1}} dx &= \int  \frac{1}{(t^2 - 1)t} 2t dt
+= \int  \frac{2}{(t^2 - 1)}  dt  \\
+& =\int  \frac{(t+1) - (t-1)}{(t -1)(t+1)}  dt
+=\int  \frac{1}{t-1} - \frac{1}{t+1}  dt \\
+&= \log|t-1| - \log|t+1|
+= \log \left| \frac{\sqrt{x+1} - 1}{\sqrt{x+1} + 1} \right| \text{ \,\,である.}\\
+\end{split}
+\end{align*}
+
+
+ \vspace{33pt}
+     \newpage
+
+ {\Large 第2問.} (授業第9,10回の内容.)
+ \vspace{11pt}
+ 
+ 
+%(1). 次の定積分を求めよ.
+%$$\int_{2}^{4} \frac{\sqrt{x}}{ \sqrt{6-x} + \sqrt{x}}dx$$
+%(ヒント. $t=6-x$という置換積分法を用いる.)
+
+(1). $a$を正の実数とし, $f(x)$を$[-a,a]$上の連続関数とする. 任意の$x \in [-a, a]$について$f(-x) = - f(x)$であると仮定する.このとき$\int_{-a}^{a} f(x) dx =0$であることを示せ.
+
+    \vspace{11pt}
+    
+(2). 次の定積分を求めよ.
+
+$$
+\int_{-2}^{2} \left( x^3 \cos \frac{x}{2} + \frac{1}{2} \right) \sqrt{4 - x^2} dx
+$$
+
+ \vspace{11pt}
+ 
+\hspace{-11pt}{\Large $\bullet$ 第2問解答例.}
+
+(1). $t = -x$とおいて置換積分をすると, $dt = -dx$より
+$$
+\int_{-a}^{a} f(x) dx 
+= -\int_{a}^{-a} f(-t) dt 
+= \int_{-a}^{a} f(-t) dt 
+= -\int_{-a}^{a} f(t) dt 
+= -\int_{-a}^{a} f(x) dx.
+$$
+以上より$2 \int_{-a}^{a} f(x) dx =0$となるので, $\int_{-a}^{a} f(x) dx =0$となる.
+
+(2). $g(x) = x^3 \cos \frac{x}{2} \sqrt{4 - x^2}$とおくと, $g(x)$は$[-2,2]$上の連続関数で, 
+任意の$x \in [-2, 2]$について
+$$
+g(-x) = (-x)^3 \cos \frac{(-x)}{2} \sqrt{4 - (-x)^2}
+= -x^3 \cos \frac{x}{2} \sqrt{4 - x^2}
+= -g(x)
+$$
+である. よって(1)より, 
+$$
+\int_{-2}^{2} \left( x^3 \cos \frac{x}{2} \right) \sqrt{4 - x^2} dx =0 \text{ \,\,である.}
+$$
+
+一方$\int_{-2}^{2} \frac{1}{2} \sqrt{4 - x^2} dx$について, $x = 2\cos t$と置換積分すれば, $dx = 2 (- \sin t) dt$であるので, 
+  \begin{align*}
+\begin{split}
+\int_{-2}^{2} \frac{1}{2} \sqrt{4 - x^2} dx 
+&= \int_{\pi}^{0} \frac{1}{2} \sqrt{4 - 4 (\cos t)^2} 2 (- \sin t) dt \\
+&= \int^{\pi}_{0} 2 (\sin t)^2 dt 
+ = \int^{\pi}_{0} (1 -  \cos 2t)dt \\
+&= \left[t - \frac{\sin 2t}{2} \right]^{\pi}_{0} = \pi
+\end{split}
+\end{align*}
+
+以上より$
+\int_{-2}^{2} \left( x^3 \cos \frac{x}{2} + \frac{1}{2} \right) \sqrt{4 - x^2} dx
+ = \pi$である.
+ 
+   \vspace{33pt}
+   
+  {\Large 第3問.} (授業第9,10,11回の内容.)
+    \vspace{11pt}
+ 
+$$
+I = \int_{0}^{\frac{\pi}{2}} \log (\sin x) dx
+$$
+とおく.
+以下の問いに答えよ.
+ただしこの広義積分が収束することは仮定してよい．
+(したがって置換積分法や部分積分法などは自由に使って良い.)
+     
+     \vspace{11pt}
+     
+(1).  $I = \int_{0}^{\frac{\pi}{2}} \log (\cos x) dx$を示せ.
+
+\vspace{11pt}
+
+(2).  $2I = - \frac{\pi}{2}  \log 2 + \int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx$を示せ.
+
+\vspace{11pt}
+
+(3).  $\int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx$を$I$を用いて表せ.
+
+\vspace{11pt}
+
+(4). $I$の値を求めよ.
+ \vspace{11pt}
+ 
+\hspace{-11pt}{\Large $\bullet$ 第3問解答例.}
+
+(1). $t = \frac{\pi}{2} -x$と置換積分すれば, $dx = -dt$であるので, 
+$$
+I= - \int_{\frac{\pi}{2}}^{0} \log(\sin(\frac{\pi}{2}-t))dt
+= \int_{0}^{\frac{\pi}{2}} \log (\cos t) dt = \int_{0}^{\frac{\pi}{2}} \log (\cos x) dx.
+$$
+
+(2). (1)を用いると, 
+  \begin{align*}
+\begin{split}
+2I &=\int_{0}^{\frac{\pi}{2}} \log (\sin x) dx+ \int_{0}^{\frac{\pi}{2}} \log (\cos x) dx \\
+&=\int_{0}^{\frac{\pi}{2}} \log (\sin x \cos x) dx
+=\int_{0}^{\frac{\pi}{2}} \log (\frac{\sin 2x}{2}) dx \\
+&= \int_{0}^{\frac{\pi}{2}} \log( \frac{1}{2}) + \int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx \\
+&=-\frac{\pi}{2} \log2 + \int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx.
+\end{split}
+\end{align*}
+
+
+(3). $t = 2x$と置換積分すれば, $x = \frac{t}{2}$より$dx = \frac{1}{2}dt$であるので, 
+  \begin{align*}
+\begin{split}
+\int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx 
+&=
+\frac{1}{2}\int_{0}^{\pi} \log (\sin t) dt
+= \frac{1}{2}\int_{0}^{\frac{\pi}{2}} \log (\sin t) dt + \frac{1}{2}\int_{\frac{\pi}{2}}^{\pi} \log (\sin t) dt \\
+&= \frac{1}{2}I + \frac{1}{2}\int_{\frac{\pi}{2}}^{\pi} \log (\sin t) dt.
+\end{split}
+\end{align*}
+
+$\int_{\frac{\pi}{2}}^{\pi} \log (\sin t) dt$に関しては, $t=s + \frac{\pi}{2}$と置換積分すれば,
+$$
+\int_{\frac{\pi}{2}}^{\pi} \log (\sin t) dt = \int_{0}^{\frac{\pi}{2}} \log (\sin (s + \frac{\pi}{2})) ds = \int_{0}^{\frac{\pi}{2}} \log (\cos s) ds = I
+$$
+
+以上より, 
+$$
+\int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx 
+= \frac{1}{2}I + \frac{1}{2}\int_{\frac{\pi}{2}}^{\pi} \log (\sin t) dt
+=  \frac{1}{2}I + \frac{1}{2}I =I \text{\,\,である.}
+$$
+
+[補足.]
+$\int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx  = \frac{\pi}{2} \log2  + 2I$も正解としました.
+
+(4). (2)と(3)により,
+$$
+2I =-\frac{\pi}{2} \log2 + \int_{0}^{\frac{\pi}{2}} \log (\sin 2x) dx 
+=-\frac{\pi}{2} \log2 + I
+$$
+であるので, $I = -\frac{\pi}{2} \log2$である.
+\vspace{33pt} 
+     
+   
+{\Large 第4問.} (授業第11回の内容.)
+\vspace{11pt}
+
+$p$を実数とする.
+ 広義積分
+$$\int_{1}^{\infty} (1+2\sqrt{x})^{2p} \log x \text{\,}dx $$
+
+が収束するような$p$の範囲を求めよ.
+
+  \vspace{11pt}
+ 
+\hspace{-11pt}{\Large $\bullet$ 第4問解答例.}
+
+求める範囲が$p<-1$であることを示す. 
+
+(1).$p < -1$のとき, 広義積分$\int_{1}^{\infty} (1+2\sqrt{x})^{2p} \log x \text{\,}dx$が収束することを示す. \\
+$p + \epsilon <-1$となるように$\epsilon >0$を取ると, 
+$$
+\lim_{x \rightarrow + \infty} \frac{(1 + 2 \sqrt{x})^{2p} \log x}{ x^{p+ \epsilon} }
+= 
+\lim_{x \rightarrow + \infty}\frac{(1 + 2 \sqrt{x})^{2p}} { x^p }\frac{\log x}{ x^{\epsilon}}
+= 0.
+$$
+よって, ある$C>0$があって, $C \leqq x$ならば$(1 + 2 \sqrt{x})^{2p} \log x \leqq x^{p+ \epsilon} $となる.
+$p + \epsilon <-1$であるので, 広義積分$\int_{C}^{\infty} x^{p + \epsilon} dx$は収束する.
+これより第11回授業でやった定理から, 広義積分$\int_{C}^{\infty}(1 + 2 \sqrt{x})^{2p} \log x dx$も収束する.
+$\int^{C}_{1}(1 + 2 \sqrt{x})^{2p} \log x dx$は定積分で有限の値を取るので, 広義積分
+$\int_{1}^{\infty} (1 + 2 \sqrt{x})^{2p} \log x dx$は収束する.
+
+(2).$-1 \leqq p \leqq 0$のとき, $\int_{1}^{\infty} (1+2\sqrt{x})^{2p} \log x \text{\,}dx$が$+ \infty$に発散することを示す. \\
+$1 \leqq x$ならば, $1 + 2 \sqrt{x} \leqq \sqrt{x} + 2 \sqrt{x} \leqq 3\sqrt{x} $より, 
+$$
+(1 + 2 \sqrt{x})^{2p} \geqq 3^{2p} x^{p}
+$$
+である. 一方$3 \leqq x$ならば$\log x \geqq 1$であるので, 
+$3 \leqq x$ならば
+$$
+(1 + 2 \sqrt{x})^{2p} \log x \geqq 3^{2p} x^{p}
+$$
+である. $-1 \leqq p$により広義積分$\int_{3}^{\infty} 3^{2p} x^{p} dx$ は$+ \infty$に発散するので, 
+第11回授業でやった定理より, 広義積分$\int_{3}^{\infty} (1 + 2 \sqrt{x})^{2p} \log x dx$も$+ \infty$に発散する.
+$\int_{1}^{3} (1 + 2 \sqrt{x})^{2p} \log x dx$は定積分で有限の値を取るので, 広義積分
+$\int_{1}^{\infty} (1 + 2 \sqrt{x})^{2p} \log x dx$は$+ \infty$に発散する.
+
+(3).$0 < p$のとき, $\int_{1}^{\infty} (1+2\sqrt{x})^{2p} \log x \text{\,}dx$が$+ \infty$に発散することを示す. \\
+$1 \leqq x$ならば, $1 + 2 \sqrt{x} \geqq 2 \sqrt{x} $より, 
+$$
+(1 + 2 \sqrt{x})^{2p} \geqq 2^{2p} x^{p}
+$$
+である. 一方$3 \leqq x$ならば$\log x \geqq 1$であるので, 
+$3 \leqq x$ならば
+$$
+(1 + 2 \sqrt{x})^{2p} \log x \geqq 2^{2p} x^{p}
+$$
+である. $-1 \leqq p$により広義積分$\int_{3}^{\infty} 2^{2p} x^{p} dx$ は$+ \infty$に発散するので, 
+第11回授業でやった定理より, 広義積分$\int_{3}^{\infty} (1 + 2 \sqrt{x})^{2p} \log x dx$も$+ \infty$に発散する.
+$\int_{1}^{3} (1 + 2 \sqrt{x})^{2p} \log x dx$は定積分で有限の値を取るので, 広義積分
+$\int_{1}^{\infty} (1 + 2 \sqrt{x})^{2p} \log x dx$は$+ \infty$に発散する.
+
+(1)から(3)によって広義積分$\int_{1}^{\infty} (1+2\sqrt{x})^{2p} \log x \text{\,}dx $が収束するような$p$の範囲は$p <-1$である.
+
+[別解.]
+$$
+\lim_{x \rightarrow + \infty} \frac{(1 + 2 \sqrt{x})^{2p} \log x}{ x^{p} \log x }
+=
+\lim_{x \rightarrow + \infty} \left( \frac{1}{\sqrt{x}} + 2 \right)^{2p}
+= 2^{2p}
+$$
+であるので, ある$C>0$があって, $C \leqq x$ならば
+$$
+\frac{2^{2p}}{2}  x^{p} \log x \leqq (1 + 2 \sqrt{x})^{2p} \log x \leqq  \frac{3\cdot2^{2p}}{2}  x^{p} \log x
+$$
+である.\footnote{グラフを書いて見ればわかると思います.}
+第11回授業演習問題から, $p < -1$ならば広義積分$\int_{C}^{\infty} x^{p} \log x dx$は収束し, $p \geqq -1$ならば広義積分$\int_{C}^{\infty} x^{p} \log x dx$は$+\infty$に発散する.
+よって第11回授業でやった定理より, $p < -1$ならば広義積分$\int_{C}^{\infty} (1 + 2 \sqrt{x})^{2p} \log xdx$は収束し, $p \geqq -1$ならば広義積分$\int_{C}^{\infty} (1 + 2 \sqrt{x})^{2p} \log xdx$は$+\infty$に発散する.
+よって求める範囲は$p <-1$である. ($\int^{C}_{1}(1 + 2 \sqrt{x})^{2p} \log x dx$は定積分で有限の値を取るため.)
+
+
+\vspace{33pt} 
+
+{\Large 期末レポートおまけ問題.} (授業第11回の内容.)
+\vspace{11pt}
+
+次の問いに答えよ.
+
+\vspace{11pt}
+
+(1). 広義積分
+$$ \int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)} dx$$
+は収束するか発散するか． 理由とともに答えよ.
+ 
+(2). 広義積分
+$$ \int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)^2} dx$$
+は収束するか発散するか． 理由とともに答えよ.
+ 
+  \vspace{11pt}
+ 
+\hspace{-11pt}{\Large $\bullet$ 期末レポートおまけ問題解答例.}
+
+(1). 
+$$
+(\log(- \log x))'
+=
+\frac{1}{- \log x} \frac{-1}{x} = \frac{1}{x \log x}
+\text{\,\,であるので, }
+$$%$0 < x \leqq \frac{1}{2}$について$\log x <0$であることに注意して, 
+$$ \int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)} dx
+= \lim_{\epsilon \rightarrow +0}\int_{\epsilon}^{\frac{1}{2}} \frac{1}{x (\log x)} dx
+=\lim_{\epsilon \rightarrow +0} \Bigl[ \log(- \log x) \Bigr]^{\frac{1}{2}}_{\epsilon}
+=\log(- \log \frac{1}{2}) - \lim_{\epsilon \rightarrow +0}\log(- \log \epsilon).
+$$
+$\lim_{\epsilon \rightarrow +0}\log(- \log \epsilon) =+ \infty$であるため, 
+広義積分$ \int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)} dx$
+は$+ \infty$に発散する．
+
+(2).
+$$
+\left(\frac{-1}{\log x}\right)'
+=
+\frac{-1}{(\log x)^2} \frac{-1}{x} = \frac{1}{x (\log x)^2}
+\text{\,\,であるので, }
+$$
+%$0 < x \leqq \frac{1}{2}$について$\log x <0$であることに注意して, 
+$$ \int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)^2} dx
+= \lim_{\epsilon \rightarrow +0}\int_{\epsilon}^{\frac{1}{2}} \frac{1}{x (\log x)^2} dx
+=\lim_{\epsilon \rightarrow +0} \Bigl[\frac{-1}{\log x}\Bigr]^{\frac{1}{2}}_{\epsilon}
+=\frac{-1}{\log \frac{1}{2}} - \lim_{\epsilon \rightarrow +0}\frac{-1}{\log \epsilon}.
+$$
+$\lim_{\epsilon \rightarrow +0} \frac{-1}{\log \epsilon} =0$であるため, 
+広義積分$\int_{0}^{\frac{1}{2}} \frac{1}{x (\log x)^2} dx$
+は収束する.
+
+%[補足.] この問題は研究しているときに出てきた広義積分で, 面白いと思ったので出しました. Poincare計量がcompleteだけれども体積有限なのはこれからきています.
+
+ \vspace{33pt} 
+   
+   \hspace{-11pt}{\Large 期末レポートについて.}
+
+第1問から第4問を通して, 正答率81\%でした. とてもよくできていたと思います. 
+各問題を通しての感想は以下のとおりです.
+\begin{itemize}
+\item [第1問.] 正答率94\%. 非常によくできていました. 大学入試で不定積分をかなり練習したと思うので, 解きやすかったのではないでしょうか. 
+\item [第2問.] 正答率82\%. これも高校でやったかもしれません. 元ネタの問題はノーヒントで(2)の値を求める問題だったのですが, ちょっと難しいかなと思って(1)の誘導をつけました.
+\item [第3問.] 正答率96\%. 有名問題です. 元ネタの問題ではノーヒントで$\int_{0}^{\frac{\pi}{2}} \log (\sin x) dx$の値を求める問題だったのですが, あまりに難しいので誘導をつけました. 複素解析でも求められる非常に面白い積分です.
+\item [第4問.] 正答率36\%. 中間レポートの正答率が良かったので, この問題で調整しました. かなりの難問だと思います. こういう問題の解き方のコツとして, 解答を書く前におおよその正解を掴むことです. (議論を構築するのは正解を把握してからです.) \\
+　私が答えを書く前にやった考察は以下の通りです.
+「$(1 + 2 \sqrt{x})^{2p} \log x$は$[1, \infty)$で連続だから, 広義積分が収束するか発散するかは$x$が大きいところの話である. $(1 + 2 \sqrt{x})^{2p} \log x$は$x$が大きいときはだいたい$x^p \log x$だ.\footnote{つまり$(1 + 2 \sqrt{x})^{2p} \log x = O(x^p \log x) (x \rightarrow \infty)$ということです.} そして$x^p \log x$は$p<-1$のとき収束するから, だいたい答えは$p<-1$だろう.」 
+この考察を元に解答を作成しております. 
+\end{itemize}
+
+
+
+ 
+
+\end{document}
